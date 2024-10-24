@@ -12,8 +12,8 @@ app = Flask(__name__)
 
 S3_BUCKET = 'opendesk'
 S3_REGION = 'us-east-1'
-AWS_ACCESS_KEY = os.getenv('AWS_ACCESS_KEY_ID')
-AWS_SECRET_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
+AWS_ACCESS_KEY = ''
+AWS_SECRET_KEY = ''
 
 s3_client = boto3.client(
     's3',
@@ -27,12 +27,14 @@ LOCAL_FOLDER = 'downloaded_images'
 if not os.path.exists(LOCAL_FOLDER):
     os.makedirs(LOCAL_FOLDER)
 
+
 @app.route('/download-images', methods=['POST'])
 def download_images():
     try:
         data = request.get_json()
         S3_FOLDER_PREFIX = data['name']
-        response = s3_client.list_objects_v2(Bucket=S3_BUCKET, Prefix=S3_FOLDER_PREFIX)
+        response = s3_client.list_objects_v2(
+            Bucket=S3_BUCKET, Prefix=S3_FOLDER_PREFIX)
 
         if 'Contents' not in response:
             return "No images found in the specified folder.", 404
@@ -52,12 +54,14 @@ def download_images():
 
         create_train()
 
-        print(f"Downloaded {downloaded_count} images to '{LOCAL_FOLDER}' and processed them.")
+        print(
+            f"Downloaded {downloaded_count} images to '{LOCAL_FOLDER}' and processed them.")
 
         return 'Completed'
-    
+
     except Exception as e:
         return str(e), 500
+
 
 if __name__ == '__main__':
     app.run(debug=True)

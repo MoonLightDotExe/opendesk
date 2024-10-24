@@ -2,24 +2,26 @@ import os
 import cv2 as cv
 import numpy as np
 
-DIR = r'D:\MajorProject\downloaded_images'
+DIR = r'C:\Users\JIGISHA GHANEKAR\Desktop\majorP\opendesk\downloaded_images'
 haar_cascades = cv.CascadeClassifier('haar_face.xml')
 
 features = []
 labels = []
+
 
 def create_train():
     people = os.listdir(DIR)
     for person in people:
         path = os.path.join(DIR, person)
         label = people.index(person)
-        
+
         for img in os.listdir(path):
             img_path = os.path.join(path, img)
             img_array = cv.imread(img_path)
             gray = cv.cvtColor(img_array, cv.COLOR_BGR2GRAY)
 
-            faces_rect = haar_cascades.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=4)
+            faces_rect = haar_cascades.detectMultiScale(
+                gray, scaleFactor=1.1, minNeighbors=4)
 
             for (x, y, w, h) in faces_rect:
                 faces_roi = gray[y:y + h, x:x + w]
@@ -41,6 +43,7 @@ def create_train():
     face_recognizer.save('faces_trained.yml')
     np.save('features.npy', features_array)
     np.save('labels.npy', labels_array)
+
 
 if __name__ == '__main__':
     create_train()
