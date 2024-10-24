@@ -4,7 +4,7 @@ import face_recognition
 import numpy as np
 import pickle
 
-DIR = r'D:\opendesk\downloaded_images'
+DIR = r'C:\Users\JIGISHA GHANEKAR\Desktop\majorP\opendesk\downloaded_images'
 
 with open('face_encodings.pkl', 'rb') as f:
     known_encodings = pickle.load(f)
@@ -25,10 +25,12 @@ while True:
     face_encodings = face_recognition.face_encodings(rgb_frame, face_locations)
 
     for (top, right, bottom, left), face_encoding in zip(face_locations, face_encodings):
-        
-        matches = face_recognition.compare_faces(known_encodings, face_encoding)
-        face_distances = face_recognition.face_distance(known_encodings, face_encoding)
-        
+
+        matches = face_recognition.compare_faces(
+            known_encodings, face_encoding)
+        face_distances = face_recognition.face_distance(
+            known_encodings, face_encoding)
+
         best_match_index = np.argmin(face_distances)
 
         if matches[best_match_index]:
@@ -36,13 +38,15 @@ while True:
             name = people[label]
             confidence = 1 - face_distances[best_match_index]
             print(f'Label: {name} with a Confidence: {confidence:.2f}')
-            
+
             cv.rectangle(frame, (left, top), (right, bottom), (0, 255, 0), 2)
-            cv.putText(frame, f'{name} ({confidence:.2f})', (left, top - 10), cv.FONT_HERSHEY_COMPLEX, 0.8, (0, 255, 0), 2)
+            cv.putText(frame, f'{name} ({confidence:.2f})', (left,
+                       top - 10), cv.FONT_HERSHEY_COMPLEX, 0.8, (0, 255, 0), 2)
         else:
             print("Unknown face")
             cv.rectangle(frame, (left, top), (right, bottom), (0, 0, 255), 2)
-            cv.putText(frame, "Unknown", (left, top - 10), cv.FONT_HERSHEY_COMPLEX, 0.8, (0, 0, 255), 2)
+            cv.putText(frame, "Unknown", (left, top - 10),
+                       cv.FONT_HERSHEY_COMPLEX, 0.8, (0, 0, 255), 2)
 
     cv.imshow('Video', frame)
 

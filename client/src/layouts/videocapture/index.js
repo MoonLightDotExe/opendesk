@@ -6,6 +6,7 @@ import MDBox from "components/MDBox";
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Footer from "examples/Footer";
+import { AlignVerticalCenter, FormatAlignJustify } from "@mui/icons-material";
 
 function VideoCapture() {
   const videoRef = useRef(null);
@@ -74,12 +75,29 @@ function VideoCapture() {
   return (
     <DashboardLayout>
       <DashboardNavbar absolute isMini />
-      <MDBox mt={8}>
-        <MDBox>
-          <video ref={videoRef} autoPlay width="640" height="480"></video>
+      <MDBox
+        mt={8}
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+        }}
+      >
+        <MDBox sx={{ margin: "auto auto", borderRadius: "5px" }} borderRadius="md">
+          <video
+            ref={videoRef}
+            autoPlay
+            width="640"
+            height="480"
+            style={{ borderRadius: "5px" }}
+          ></video>
           <canvas ref={canvasRef} width="640" height="480" style={{ display: "none" }}></canvas>
         </MDBox>
-        <Button onClick={startCapture} disabled={capturing}>
+        <Button
+          variant="contained"
+          sx={{ color: "#ffffff", width: "20rem", margin: "1.5rem auto" }}
+          onClick={startCapture}
+          disabled={capturing}
+        >
           {capturing ? "Capturing..." : "Start Capture"}
         </Button>
       </MDBox>
