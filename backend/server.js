@@ -10,6 +10,8 @@ const cors = require('cors')
 const connectDB = require('./config/db.config')
 
 const authRouter = require('./routes/auth.routes')
+const workerRouter = require('./routes/worker.routes')
+const workerRepository = require('./repository/worker.repository')
 
 const PORT = process.env.PORT || 5000
 
@@ -19,7 +21,7 @@ const io = socketIO(server)
 
 app.use(
   cors({
-    origin: 'http://localhost:5173',
+    origin: 'http://localhost:3000',
   })
 )
 
@@ -80,6 +82,7 @@ app.use(bodyParser.json({ limit: '30mb', extended: true }))
 connectDB()
 
 app.use(authRouter)
+app.use(workerRouter)
 
 server.listen(PORT, () => {
   console.log(`Server Listening on Port: ${PORT}`)

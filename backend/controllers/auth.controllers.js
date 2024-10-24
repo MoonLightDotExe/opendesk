@@ -4,7 +4,7 @@ const auth_repo = require('../repository/auth.repository')
 module.exports = {
   addManager: async (req, res) => {
     try {
-      console.log(req.body)
+      // console.log(req.body)
       const data = await auth_repo.addManager(req.body)
       res.status(201).json({
         success: true,
