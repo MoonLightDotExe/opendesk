@@ -1,43 +1,53 @@
 import os
 import cv2 as cv
+import face_recognition
 import numpy as np
+import pickle
 
-haar_cascade = cv.CascadeClassifier('haar_face.xml')
-DIR = r'D:\MajorProject\downloaded_images'
+DIR = r'D:\opendesk\downloaded_images'
 
-features = np.load('features.npy', allow_pickle=True)
-labels = np.load('labels.npy')
+with open('face_encodings.pkl', 'rb') as f:
+    known_encodings = pickle.load(f)
 
-people = []
+with open('face_labels.pkl', 'rb') as f:
+    known_labels = pickle.load(f)
 
-for i in os.listdir(DIR):
-    people.append(i)
-
+people = os.listdir(DIR)
 print(people)
-
-face_recognizer = cv.face.LBPHFaceRecognizer_create()
-face_recognizer.read('faces_trained.yml')
 
 capture = cv.VideoCapture(0)
 
 while True:
     isTrue, frame = capture.read()
-    gray = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
+    rgb_frame = cv.cvtColor(frame, cv.COLOR_BGR2RGB)
 
-    faces_rect = haar_cascade.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=3)
+    face_locations = face_recognition.face_locations(rgb_frame)
+    face_encodings = face_recognition.face_encodings(rgb_frame, face_locations)
 
-    for (x, y, w, h) in faces_rect:
-        faces_roi = gray[y:y+h, x:x+w]
+    for (top, right, bottom, left), face_encoding in zip(face_locations, face_encodings):
+        
+        matches = face_recognition.compare_faces(known_encodings, face_encoding)
+        face_distances = face_recognition.face_distance(known_encodings, face_encoding)
+        
+        best_match_index = np.argmin(face_distances)
 
-        label, confidence = face_recognizer.predict(faces_roi)
-        print(label)
-        print(f'Label: {people[label]} with a Confidence: {confidence}')
-
-        cv.putText(frame, str(people[label]), (20, 20), cv.FONT_HERSHEY_COMPLEX, 1.0, (0, 255, 0), thickness=2)
-        cv.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), thickness=2)
+        if matches[best_match_index]:
+            label = known_labels[best_match_index]
+            name = people[label]
+            confidence = 1 - face_distances[best_match_index]
+            print(f'Label: {name} with a Confidence: {confidence:.2f}')
+            
+            cv.rectangle(frame, (left, top), (right, bottom), (0, 255, 0), 2)
+            cv.putText(frame, f'{name} ({confidence:.2f})', (left, top - 10), cv.FONT_HERSHEY_COMPLEX, 0.8, (0, 255, 0), 2)
+        else:
+            print("Unknown face")
+            cv.rectangle(frame, (left, top), (right, bottom), (0, 0, 255), 2)
+            cv.putText(frame, "Unknown", (left, top - 10), cv.FONT_HERSHEY_COMPLEX, 0.8, (0, 0, 255), 2)
 
     cv.imshow('Video', frame)
 
     if cv.waitKey(20) & 0xFF == ord('d'):
         break
 
+capture.release()
+cv.destroyAllWindows()
