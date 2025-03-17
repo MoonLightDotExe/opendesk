@@ -45,6 +45,7 @@ import Profile from "layouts/profile";
 import SignIn from "layouts/authentication/sign-in";
 import SignUp from "layouts/authentication/sign-up";
 import VideoCapture from "layouts/videocapture";
+import MultiVideo from "layouts/multivideo";
 
 // @mui icons
 import Icon from "@mui/material/Icon";
@@ -121,6 +122,14 @@ const routes = [
     icon: <Icon fontSize="small">assignment</Icon>,
     route: "/video-capture",
     component: <VideoCapture />,
+  },
+  {
+    type: "collapse",
+    name: "Multi-Screen",
+    key: "Multi-Video-Screen",
+    icon: <Icon fontSize="small">assignment</Icon>,
+    route: "/multi-video-screen",
+    component: <MultiVideo />,
   },
 ];
 

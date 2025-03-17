@@ -1,0 +1,11 @@
+.container-header {
+  height: 7vh;
+  background-color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  letter-spacing: 0.55rem;
+  font-size: 3rem;
+  font-family: 'Roboto Condensed', sans-serif;
+  border-bottom: 2px solid black;
+}

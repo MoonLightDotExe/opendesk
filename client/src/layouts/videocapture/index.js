@@ -29,7 +29,7 @@ function VideoCapture() {
 
   const startCapture = () => {
     setCapturing(true);
-    const newFolderName = `jigisha`;
+    const newFolderName = `external`;
     setFolderName(newFolderName);
 
     const captureInterval = setInterval(() => {

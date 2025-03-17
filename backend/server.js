@@ -5,13 +5,14 @@ const bodyParser = require('body-parser')
 const http = require('http')
 const socketIO = require('socket.io')
 const testingRepository = require('./repository/testing.repository')
+const dataRepository = require('./repository/data.repository')
 const cors = require('cors')
 
 const connectDB = require('./config/db.config')
 
 const authRouter = require('./routes/auth.routes')
 const workerRouter = require('./routes/worker.routes')
-const workerRepository = require('./repository/worker.repository')
+const dataRouter = require('./routes/data.routes')
 
 const PORT = process.env.PORT || 5000
 
@@ -34,19 +35,37 @@ AWS.config.update({
 const s3 = new AWS.S3()
 app.use(express.json({ limit: '50mb' }))
 
+// WebSocket Connection
 io.on('connection', (socket) => {
-  console.log('A user connected')
+  console.log('A user connected:', socket.id)
 
+  // Handle Performance Estimation Messages
   socket.on('message', (data) => {
     testingRepository.performanceEstimation(data)
     socket.emit('response', 'Received your message: ' + data)
   })
 
+  // New WebSocket Event for Pushing Data to MongoDB
+  socket.on('push_data', async (data) => {
+    try {
+      console.log('Received Data for MongoDB:', data)
+
+      await dataRepository.commitData(data)
+      console.log('Data saved to MongoDB')
+
+      socket.emit('data_saved', { message: 'Data successfully stored!' })
+    } catch (error) {
+      console.error('Error saving data:', error)
+      socket.emit('error', { message: 'Failed to store data!' })
+    }
+  })
+
   socket.on('disconnect', () => {
-    console.log('A user disconnected')
+    console.log('A user disconnected:', socket.id)
   })
 })
 
+// Upload to S3
 app.post('/api/upload', (req, res) => {
   const { imageData, folder } = req.body
   console.log('Received upload request:', req.body)
@@ -83,6 +102,7 @@ connectDB()
 
 app.use(authRouter)
 app.use(workerRouter)
+app.use(dataRouter)
 
 server.listen(PORT, () => {
   console.log(`Server Listening on Port: ${PORT}`)
