@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import ReactPaginate from 'react-paginate'
 
+import Header from '../../shared/Header/Header'
 import next from '../../assets/next.png'
 import previous from '../../assets/previous.png'
 
@@ -54,43 +55,47 @@ function MultiVideo() {
   }
 
   return (
-    <div className='multi-container'>
-      <div className='grid-container'>
-        <Items currentItems={currentItems} />
-      </div>
+    <>
+      <Header />
 
-      <ReactPaginate
-        breakLabel='...'
-        nextLabel={
-          <img
-            src={next}
-            alt='Next'
-            style={{ width: '40px', height: '40px' }}
-          />
-        }
-        previousLabel={
-          <img
-            src={previous}
-            alt='Previous'
-            style={{ width: '40px', height: '40px' }}
-          />
-        }
-        onPageChange={handlePageClick}
-        pageRangeDisplayed={5}
-        pageCount={pageCount}
-        renderOnZeroPageCount={null}
-        containerClassName='pagination'
-        pageClassName='page-item'
-        pageLinkClassName='page-link'
-        previousClassName='previous-item'
-        previousLinkClassName='previous-link'
-        nextClassName='next-item'
-        nextLinkClassName='next-link'
-        breakClassName='break-item'
-        breakLinkClassName='break-link'
-        activeClassName='active'
-      />
-    </div>
+      <div className='multi-container'>
+        <div className='grid-container'>
+          <Items currentItems={currentItems} />
+        </div>
+
+        <ReactPaginate
+          breakLabel='...'
+          nextLabel={
+            <img
+              src={next}
+              alt='Next'
+              style={{ width: '40px', height: '40px' }}
+            />
+          }
+          previousLabel={
+            <img
+              src={previous}
+              alt='Previous'
+              style={{ width: '40px', height: '40px' }}
+            />
+          }
+          onPageChange={handlePageClick}
+          pageRangeDisplayed={5}
+          pageCount={pageCount}
+          renderOnZeroPageCount={null}
+          containerClassName='pagination'
+          pageClassName='page-item'
+          pageLinkClassName='page-link'
+          previousClassName='previous-item'
+          previousLinkClassName='previous-link'
+          nextClassName='next-item'
+          nextLinkClassName='next-link'
+          breakClassName='break-item'
+          breakLinkClassName='break-link'
+          activeClassName='active'
+        />
+      </div>
+    </>
   )
 }
 

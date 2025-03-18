@@ -1,6 +1,8 @@
 import React, { useRef, useEffect, useState } from 'react'
 import axios from 'axios'
 
+import Header from '../../shared/Header/Header'
+
 import './VideoCapture.css'
 
 function VideoCapture() {
@@ -68,35 +70,39 @@ function VideoCapture() {
   }
 
   return (
-    <div className='VideoCapture-container'>
-      <div className='VideoCapture'>
-        <video
-          ref={videoRef}
-          autoPlay
-          width='640'
-          height='480'
-          style={{ borderRadius: '5px' }}
-        ></video>
-        <canvas
-          ref={canvasRef}
-          width='640'
-          height='480'
-          style={{ display: 'none' }}
-        ></canvas>
+    <>
+      <Header />
+
+      <div className='VideoCapture-container'>
+        <div className='VideoCapture'>
+          <video
+            ref={videoRef}
+            autoPlay
+            width='640'
+            height='480'
+            style={{ borderRadius: '5px' }}
+          ></video>
+          <canvas
+            ref={canvasRef}
+            width='640'
+            height='480'
+            style={{ display: 'none' }}
+          ></canvas>
+        </div>
+        <div className='VideoCapture-button'>
+          <button
+            className='VideoCapture-btncapture'
+            onClick={startCapture}
+          >
+            CAPTURE
+          </button>
+          <button className='VideoCapture-btnrecapture'>RECAPTURE</button>
+        </div>
+        <div className='VideoCapture-submit'>
+          <button className='VideoCapture-btnsubmit'>SUBMIT</button>
+        </div>
       </div>
-      <div className='VideoCapture-button'>
-        <button
-          className='VideoCapture-btncapture'
-          onClick={startCapture}
-        >
-          CAPTURE
-        </button>
-        <button className='VideoCapture-btnrecapture'>RECAPTURE</button>
-      </div>
-      <div className='VideoCapture-submit'>
-        <button className='VideoCapture-btnsubmit'>SUBMIT</button>
-      </div>
-    </div>
+    </>
   )
 }
 

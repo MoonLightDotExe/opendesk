@@ -6,11 +6,11 @@ import MultiVideo from './components/MultiVideo/MultiVideo'
 import VideoCapture from './components/VideoCapture/VideoCapture'
 
 import './App.css'
+import Dashboard from './components/Dashboard/Dashboard'
 
 function App() {
   return (
     <Router>
-      <Header />
       <Routes>
         <Route
           path='/multi-video'
@@ -19,6 +19,10 @@ function App() {
         <Route
           path='/video-capture'
           Component={VideoCapture}
+        />
+        <Route
+          path='/dashboard'
+          Component={Dashboard}
         />
       </Routes>
     </Router>
