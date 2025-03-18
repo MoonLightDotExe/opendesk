@@ -26,7 +26,7 @@ function VideoCapture() {
 
   const startCapture = () => {
     setCapturing(true)
-    const newFolderName = `Omaa`
+    const newFolderName = `Sammy`
     setFolderName(newFolderName)
 
     const captureInterval = setInterval(() => {

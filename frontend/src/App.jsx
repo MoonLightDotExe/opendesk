@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
 import Header from './shared/Header/Header'
 import MultiVideo from './components/MultiVideo/MultiVideo'
 import VideoCapture from './components/VideoCapture/VideoCapture'
+import Register from './components/Register/Register'
 
 import './App.css'
 import Dashboard from './components/Dashboard/Dashboard'
@@ -12,6 +13,10 @@ function App() {
   return (
     <Router>
       <Routes>
+        <Route
+          path='/sign-up'
+          Component={Register}
+        />
         <Route
           path='/multi-video'
           Component={MultiVideo}

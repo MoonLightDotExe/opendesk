@@ -1,0 +1,99 @@
+.Register-container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  font-family: 'Roboto Condensed', sans-serif;
+}
+
+.Register-bg-container {
+  width: 65vw;
+  aspect-ratio: 16/9;
+  overflow: hidden;
+}
+
+.Register-bg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.RegContainer1 {
+  height: 35vh;
+  width: auto;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  flex: 1;
+  padding: 40px;
+}
+
+.RegisterHeader {
+  font-size: 54px;
+  margin: 0;
+  letter-spacing: 10px;
+}
+
+.RegisterSubheader {
+  letter-spacing: 2px;
+  font-size: 18px;
+  color: gray;
+  margin-bottom: 3rem;
+  text-transform: uppercase;
+}
+
+.RegContainer2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-size: 30px;
+  margin-top: 30px;
+  text-align: center;
+  gap: 1.5rem;
+  font-weight: 400;
+}
+
+.RegButton {
+  width: 130px;
+  height: 50px;
+  color: azure;
+  background-color: #175fff;
+  border: 2px solid black;
+  border-radius: 8px;
+  font-weight: 200;
+  margin-top: 3rem;
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+.RegButton:hover {
+  box-shadow: 2px 2px 2px grey;
+}
+
+.input-field {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+.input-field:hover {
+  box-shadow: 2px 2px 2px grey;
+}
+
+.input-field2 {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+.input-field2:hover {
+  box-shadow: 2px 2px 2px grey;
+}
+
+.input-field3 {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+.input-field3:hover {
+  box-shadow: 2px 2px 2px grey;
+}
