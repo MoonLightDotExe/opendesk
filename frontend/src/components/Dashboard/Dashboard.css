@@ -11,6 +11,23 @@
   transition: all 0.3s ease;
 }
 
+.sidebar .ps-menu-button {
+  padding: 10px 15px;
+  font-size: 16px;
+  color: #ffffff;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.sidebar .ps-menu-button:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.sidebar .ps-menu-button.ps-active {
+  font-weight: bold;
+  border-right: 3px solid black;
+  border-radius: 2.5px;
+}
+
 .dashboard-sidebar-header {
   /* height: 10vh; */
   padding: 3vh 0;
@@ -39,10 +56,91 @@
   flex: 1;
   padding: 20px;
   background: #f5f8fe;
+  flex-direction: column;
+}
+
+.dashboard-nav {
+  padding: 2.5rem;
+  padding-left: 1rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.dashboard-nav-breadcrumb {
+  margin-top: -1rem;
+  font-family: 'Roboto Condensed', sans-serif;
+}
+
+.dashboard-nav-title {
+  font-size: 2rem;
+  text-transform: uppercase;
+  letter-spacing: 3.5px;
+  /* font-family: 'Roboto Condensed', sans-serif; */
+}
+
+.dashboard-profile-bar {
+  display: flex;
+  align-items: center;
+  background: #f8faff;
+  padding: 10px 15px;
+  border-radius: 25px;
+  width: fit-content;
+  background-color: #fff;
+  margin-top: -1rem;
+}
+
+.search-bar {
+  border: none;
+  outline: none;
+  background: #eef1f7;
+  padding: 10px 15px;
+  border-radius: 20px;
+  font-size: 14px;
+  width: 150px;
+}
+
+.icon-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: 10px;
+}
+
+.icon-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  color: #333;
+  padding: 8px;
+  border-radius: 50%;
+  transition: background 0.3s ease;
+}
+
+.icon-button:hover {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.icon-button svg {
+  font-size: 18px;
+}
+
+.profile-icon {
+  background: #eef1f7;
+  border-radius: 50%;
+  padding: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-direction: column;
+}
+
+.profile-icon svg {
+  font-size: 22px;
+  color: #333;
+}
+
+.dashboard-cards {
+  padding-left: 1rem;
 }
 
 .dashboard-stat-card {

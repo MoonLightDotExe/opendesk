@@ -1,6 +1,14 @@
 import React, { useState } from 'react'
 import { Sidebar, Menu, MenuItem } from 'react-pro-sidebar'
-import { FaChartPie, FaCalendarAlt, FaBook, FaBars } from 'react-icons/fa'
+import {
+  FaChartPie,
+  FaCalendarAlt,
+  FaBook,
+  FaBars,
+  FaBell,
+  FaExclamationCircle,
+  FaUserCircle,
+} from 'react-icons/fa'
 import { FaChartSimple } from 'react-icons/fa6'
 import {
   Stat,
@@ -21,6 +29,11 @@ import './Dashboard.css'
 
 function Dashboard() {
   const [collapsed, setCollapsed] = useState(false)
+  const [isActive, setActive] = useState('dashboard')
+
+  const handleClick = (e) => {
+    setActive(e.currentTarget.id)
+  }
 
   return (
     <div className='dashboard-container'>
@@ -38,26 +51,64 @@ function Dashboard() {
           >
             {collapsed ? '☰' : 'Collapse'}
           </MenuItem>
-          <MenuItem icon={<FaBook />}>Dashboard</MenuItem>
-          <MenuItem icon={<FaCalendarAlt />}>Employees</MenuItem>
+          <MenuItem
+            icon={<FaBook />}
+            id='dashboard'
+            onClick={(e) => handleClick(e)}
+            active={isActive === 'dashboard'}
+          >
+            Dashboard
+          </MenuItem>
+          <MenuItem
+            icon={<FaCalendarAlt />}
+            id='employees'
+            active={isActive === 'employees'}
+            onClick={(e) => handleClick(e)}
+          >
+            Employees
+          </MenuItem>
           <MenuItem icon={<FaCalendarAlt />}>Monitoring</MenuItem>
           <MenuItem icon={<FaCalendarAlt />}>Security Feed</MenuItem>
         </Menu>
       </Sidebar>
       <div className='dashboard-content'>
-        <Breadcrumb>
-          <BreadcrumbItem>
-            <BreadcrumbLink href='#'>Home</BreadcrumbLink>
-          </BreadcrumbItem>
+        <div className='dashboard-nav'>
+          <div className='dashboard-nav-breadcrumb'>
+            <Breadcrumb>
+              <BreadcrumbItem>
+                <BreadcrumbLink href='#'>Home</BreadcrumbLink>
+              </BreadcrumbItem>
 
-          <BreadcrumbItem>
-            <BreadcrumbLink href='#'>Docs</BreadcrumbLink>
-          </BreadcrumbItem>
+              <BreadcrumbItem>
+                <BreadcrumbLink href='#'>Docs</BreadcrumbLink>
+              </BreadcrumbItem>
 
-          <BreadcrumbItem isCurrentPage>
-            <BreadcrumbLink href='#'>Breadcrumb</BreadcrumbLink>
-          </BreadcrumbItem>
-        </Breadcrumb>
+              <BreadcrumbItem isCurrentPage>
+                <BreadcrumbLink href='#'>Breadcrumb</BreadcrumbLink>
+              </BreadcrumbItem>
+            </Breadcrumb>
+            <div className='dashboard-nav-title'>Dashboard</div>
+          </div>
+
+          <div className='dashboard-profile-bar'>
+            <input
+              type='text'
+              className='search-bar'
+              placeholder='Search...'
+            />
+            <div className='icon-container'>
+              <button className='icon-button'>
+                <FaBell />
+              </button>
+              <button className='icon-button'>
+                <FaExclamationCircle />
+              </button>
+              <button className='profile-icon'>
+                <FaUserCircle size={20} />
+              </button>
+            </div>
+          </div>
+        </div>
         <div className='dashboard-cards'>
           <Grid
             templateColumns='repeat(3, 1fr)'
@@ -68,7 +119,7 @@ function Dashboard() {
                 key={index}
                 className='dashboard-stat-card'
                 bg='white'
-                // width='15vw'
+                width='22vw'
                 borderRadius='12px'
                 boxShadow='md'
                 p={4}
