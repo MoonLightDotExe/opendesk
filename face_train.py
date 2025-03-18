@@ -3,7 +3,7 @@ import face_recognition
 import numpy as np
 import pickle
 
-DIR = r'C:\Users\JIGISHA GHANEKAR\Desktop\majorP\opendesk\downloaded_images'
+DIR = r'D:\opendesk\downloaded_images'
 
 known_encodings = []
 known_labels = []

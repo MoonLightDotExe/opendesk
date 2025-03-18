@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
 
 import Header from './shared/Header/Header'
 import MultiVideo from './components/MultiVideo/MultiVideo'
-import VideoCapture from './components/MultiVideo/VideoCapture/VideoCapture'
+import VideoCapture from './components/VideoCapture/VideoCapture'
 
 import './App.css'
 
