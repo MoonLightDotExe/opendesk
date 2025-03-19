@@ -23,19 +23,20 @@
   width: 75vw;
   display: flex;
   gap: 30vw;
-  margin-top: 4vh;
+  margin-top: 10px;
+  padding: 10px 20px;
   justify-content: space-around;
   font-weight: bold;
 }
 
-.VideoCapture-btnrecapture {
+/* .VideoCapture-btnrecapture {
   width: 130px;
   height: 50px;
   background-color: #f94f4f;
   border: 2px solid black;
   border-radius: 8px;
   font-weight: bold;
-}
+} */
 
 .VideoCapture-btncapture {
   width: 130px;
@@ -43,14 +44,21 @@
   background-color: #2cff79;
   border: 2px solid black;
   border-radius: 8px;
-  font-weight: bold;
+  font-weight: 400;
+  gap: 5rem;
+  transition: all 0.3s ease-in-out;
 }
 
-.VideoCapture-btnsubmit {
+/* .VideoCapture-btnsubmit {
   width: 130px;
   height: 50px;
   background-color: #37acff;
   border: 2px solid black;
   border-radius: 8px;
   font-weight: bold;
+} */
+
+.VideoCapture-btncapture:hover {
+  font-weight: 600;
+  box-shadow: 2px 2px 2px grey;
 }

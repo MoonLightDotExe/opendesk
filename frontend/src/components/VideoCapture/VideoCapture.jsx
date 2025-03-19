@@ -4,12 +4,14 @@ import axios from 'axios'
 import Header from '../../shared/Header/Header'
 
 import './VideoCapture.css'
+import { Input } from '@chakra-ui/react'
 
 function VideoCapture() {
   const videoRef = useRef(null)
   const canvasRef = useRef(null)
   const [capturing, setCapturing] = useState(false)
   const [folderName, setFolderName] = useState('')
+  const [name, setName] = useState('')
 
   useEffect(() => {
     navigator.mediaDevices
@@ -26,11 +28,11 @@ function VideoCapture() {
 
   const startCapture = () => {
     setCapturing(true)
-    const newFolderName = `Sammy`
-    setFolderName(newFolderName)
+    // const newFolderName = `Sammy`
+    // setFolderName(newFolderName)
 
     const captureInterval = setInterval(() => {
-      captureFrame(newFolderName)
+      captureFrame(name)
     }, 1000)
 
     setTimeout(() => {
@@ -69,6 +71,11 @@ function VideoCapture() {
     }
   }
 
+  const handleChange = (e) => {
+    console.log(e.target.value)
+    setName(e.target.value)
+  }
+
   return (
     <>
       <Header />
@@ -88,6 +95,17 @@ function VideoCapture() {
             style={{ display: 'none' }}
           ></canvas>
         </div>
+        <div className='VideoCapture-inputfield'>
+          <Input
+            className='input-field'
+            placeholder='Name'
+            width='20rem'
+            border='2px solid black'
+            marginTop='1rem'
+            value={name}
+            onChange={(e) => handleChange(e)}
+          />
+        </div>
         <div className='VideoCapture-button'>
           <button
             className='VideoCapture-btncapture'
@@ -95,10 +113,10 @@ function VideoCapture() {
           >
             CAPTURE
           </button>
-          <button className='VideoCapture-btnrecapture'>RECAPTURE</button>
+          {/* <button className='VideoCapture-btnrecapture'>RECAPTURE</button> */}
         </div>
         <div className='VideoCapture-submit'>
-          <button className='VideoCapture-btnsubmit'>SUBMIT</button>
+          {/* <button className='VideoCapture-btnsubmit'>SUBMIT</button> */}
         </div>
       </div>
     </>
