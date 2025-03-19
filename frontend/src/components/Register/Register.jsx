@@ -2,6 +2,7 @@ import React from 'react'
 import './Register.css'
 import bg from '../../assets/background.jpg'
 import { Input } from '@chakra-ui/react'
+import { Link } from 'react-router-dom'
 
 function Register() {
   return (
@@ -42,6 +43,15 @@ function Register() {
         </div>
         <div className='RegContainer3'>
           <button className='RegButton'>PROCEED</button>
+        </div>
+        <div className='Bottom-Text'>
+          Already have an account?
+          <Link
+            className='bottom-link'
+            to='/login'
+          >
+            Login
+          </Link>
         </div>
       </div>
     </div>

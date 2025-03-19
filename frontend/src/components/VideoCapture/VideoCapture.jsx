@@ -72,7 +72,6 @@ function VideoCapture() {
   return (
     <>
       <Header />
-
       <div className='VideoCapture-container'>
         <div className='VideoCapture'>
           <video
