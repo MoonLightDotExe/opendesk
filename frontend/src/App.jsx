@@ -6,9 +6,10 @@ import MultiVideo from './components/MultiVideo/MultiVideo'
 import VideoCapture from './components/VideoCapture/VideoCapture'
 import Register from './components/Register/Register.jsx'
 import Login from './components/Login/Login.jsx'
+import Dashboard from './components/Dashboard/Dashboard'
+import Employee from './components/Employee/Employee.jsx'
 
 import './App.css'
-import Dashboard from './components/Dashboard/Dashboard'
 
 function App() {
   return (
@@ -33,6 +34,10 @@ function App() {
         <Route
           path='/dashboard'
           Component={Dashboard}
+        />
+        <Route
+          path='/employee'
+          Component={Employee}
         />
       </Routes>
     </Router>

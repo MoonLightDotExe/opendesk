@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Sidebar, Menu, MenuItem } from 'react-pro-sidebar'
+import { Link } from 'react-router-dom'
 import {
   FaBars,
   FaBook,
@@ -7,6 +7,7 @@ import {
   FaBell,
   FaExclamationCircle,
   FaUserCircle,
+  FaUsers,
 } from 'react-icons/fa'
 import { IoInformationCircle } from 'react-icons/io5'
 import { AiOutlineDollarCircle } from 'react-icons/ai'
@@ -44,6 +45,9 @@ import {
   Bar,
   YAxis,
 } from 'recharts'
+
+import SidebarCustom from '../../shared/Sidebar/SidebarCustom'
+
 import './Dashboard.css'
 
 const data = [
@@ -138,50 +142,9 @@ const CustomTooltipBar = ({ active, payload, label }) => {
 }
 
 function Dashboard() {
-  const [collapsed, setCollapsed] = useState(false)
-  const [isActive, setActive] = useState('dashboard')
-
-  const handleClick = (e) => {
-    setActive(e.currentTarget.id)
-  }
-
   return (
     <div className='dashboard-container'>
-      <Sidebar
-        collapsed={collapsed}
-        className='sidebar'
-      >
-        <div className='dashboard-sidebar-header'>
-          {!collapsed ? 'OPENDESK' : 'O'}
-        </div>
-        <Menu iconShape='square'>
-          <MenuItem
-            icon={<FaBars />}
-            onClick={() => setCollapsed(!collapsed)}
-          >
-            {collapsed ? '☰' : 'Collapse'}
-          </MenuItem>
-          <MenuItem
-            icon={<FaBook />}
-            id='dashboard'
-            onClick={(e) => handleClick(e)}
-            active={isActive === 'dashboard'}
-          >
-            Dashboard
-          </MenuItem>
-          <MenuItem
-            icon={<FaCalendarAlt />}
-            id='employees'
-            active={isActive === 'employees'}
-            onClick={(e) => handleClick(e)}
-          >
-            Employees
-          </MenuItem>
-          <MenuItem icon={<FaCalendarAlt />}>Monitoring</MenuItem>
-          <MenuItem icon={<FaCalendarAlt />}>Security Feed</MenuItem>
-        </Menu>
-      </Sidebar>
-
+      <SidebarCustom />
       <div className='dashboard-content'>
         <div className='dashboard-nav'>
           <div className='dashboard-nav-breadcrumb'>
@@ -565,7 +528,7 @@ function Dashboard() {
                   dataKey='revenue'
                   stroke='#7f5cff'
                   strokeWidth={4}
-                  dot={{ r: 6 }}
+                  dot={{ r: 4 }}
                   activeDot={{ r: 8 }}
                 />
                 <Line
@@ -573,7 +536,7 @@ function Dashboard() {
                   dataKey='profit'
                   stroke='#76e0ff'
                   strokeWidth={4}
-                  dot={{ r: 6 }}
+                  dot={{ r: 4 }}
                   activeDot={{ r: 8 }}
                 />
               </LineChart>
