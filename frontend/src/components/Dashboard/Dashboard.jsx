@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Sidebar, Menu, MenuItem } from 'react-pro-sidebar'
+import { Link } from 'react-router-dom'
 import {
   FaBars,
   FaBook,
@@ -7,6 +7,7 @@ import {
   FaBell,
   FaExclamationCircle,
   FaUserCircle,
+  FaUsers,
 } from 'react-icons/fa'
 import { FaChartSimple } from 'react-icons/fa6'
 import {
@@ -37,6 +38,9 @@ import {
   Bar,
   YAxis,
 } from 'recharts'
+
+import SidebarCustom from '../../shared/Sidebar/SidebarCustom'
+
 import './Dashboard.css'
 
 const data = [
@@ -131,50 +135,9 @@ const CustomTooltipBar = ({ active, payload, label }) => {
 }
 
 function Dashboard() {
-  const [collapsed, setCollapsed] = useState(false)
-  const [isActive, setActive] = useState('dashboard')
-
-  const handleClick = (e) => {
-    setActive(e.currentTarget.id)
-  }
-
   return (
     <div className='dashboard-container'>
-      <Sidebar
-        collapsed={collapsed}
-        className='sidebar'
-      >
-        <div className='dashboard-sidebar-header'>
-          {!collapsed ? 'OPENDESK' : 'O'}
-        </div>
-        <Menu iconShape='square'>
-          <MenuItem
-            icon={<FaBars />}
-            onClick={() => setCollapsed(!collapsed)}
-          >
-            {collapsed ? '☰' : 'Collapse'}
-          </MenuItem>
-          <MenuItem
-            icon={<FaBook />}
-            id='dashboard'
-            onClick={(e) => handleClick(e)}
-            active={isActive === 'dashboard'}
-          >
-            Dashboard
-          </MenuItem>
-          <MenuItem
-            icon={<FaCalendarAlt />}
-            id='employees'
-            active={isActive === 'employees'}
-            onClick={(e) => handleClick(e)}
-          >
-            Employees
-          </MenuItem>
-          <MenuItem icon={<FaCalendarAlt />}>Monitoring</MenuItem>
-          <MenuItem icon={<FaCalendarAlt />}>Security Feed</MenuItem>
-        </Menu>
-      </Sidebar>
-
+      <SidebarCustom />
       <div className='dashboard-content'>
         <div className='dashboard-nav'>
           <div className='dashboard-nav-breadcrumb'>
@@ -217,56 +180,289 @@ function Dashboard() {
             templateColumns='repeat(3, 1fr)'
             gap={10}
           >
-            {[...Array(6)].map((_, index) => (
-              <GridItem
-                key={index}
-                className='dashboard-stat-card'
-                bg='white'
-                width='22vw'
-                borderRadius='12px'
-                boxShadow='md'
-                p={4}
-              >
-                <Stat>
-                  <Box
-                    padding='.5rem'
-                    display='flex'
-                    alignItems='center'
-                    justifyContent='space-between'
-                  >
-                    <Box className='dashboard-icon'>
-                      <Icon
-                        as={FaChartSimple}
-                        w={6}
-                        h={6}
-                        color='black'
-                      />
-                    </Box>
-                    <Box
-                      className='dashboard-stat-info'
-                      textAlign='center'
-                    >
-                      <StatLabel
-                        fontSize='sm'
-                        color='gray.500'
-                      >
-                        Earnings
-                      </StatLabel>
-                      <Box className='dashboard-stat-number'>
-                        <StatNumber fontSize='1.5rem'>$340.5</StatNumber>
-                      </Box>
-                    </Box>
-                    <StatHelpText
-                      color='green.500'
-                      marginTop='0.4rem'
-                      fontSize='1.05rem'
-                    >
-                      <StatArrow type='increase' /> 2.45%
-                    </StatHelpText>
+            <GridItem
+              className='dashboard-stat-card'
+              bg='white'
+              width='22vw'
+              borderRadius='12px'
+              boxShadow='md'
+              p={4}
+            >
+              <Stat>
+                <Box
+                  padding='.5rem'
+                  display='flex'
+                  alignItems='center'
+                  justifyContent='space-between'
+                >
+                  <Box className='dashboard-icon'>
+                    <Icon
+                      as={FaChartSimple}
+                      w={6}
+                      h={6}
+                      color='black'
+                    />
                   </Box>
-                </Stat>
-              </GridItem>
-            ))}
+                  <Box
+                    className='dashboard-stat-info'
+                    textAlign='center'
+                  >
+                    <StatLabel
+                      fontSize='sm'
+                      color='gray.500'
+                    >
+                      Earnings
+                    </StatLabel>
+                    <Box className='dashboard-stat-number'>
+                      <StatNumber fontSize='1.5rem'>$340.5</StatNumber>
+                    </Box>
+                  </Box>
+                  <StatHelpText
+                    color='green.500'
+                    marginTop='0.4rem'
+                    fontSize='1.05rem'
+                  >
+                    <StatArrow type='increase' /> 2.45%
+                  </StatHelpText>
+                </Box>
+              </Stat>
+            </GridItem>
+
+            <GridItem
+              className='dashboard-stat-card'
+              bg='white'
+              width='22vw'
+              borderRadius='12px'
+              boxShadow='md'
+              p={4}
+            >
+              <Stat>
+                <Box
+                  padding='.5rem'
+                  display='flex'
+                  alignItems='center'
+                  justifyContent='space-between'
+                >
+                  <Box className='dashboard-icon'>
+                    <Icon
+                      as={FaChartSimple}
+                      w={6}
+                      h={6}
+                      color='black'
+                    />
+                  </Box>
+                  <Box
+                    className='dashboard-stat-info'
+                    textAlign='center'
+                  >
+                    <StatLabel
+                      fontSize='sm'
+                      color='gray.500'
+                    >
+                      Earnings
+                    </StatLabel>
+                    <Box className='dashboard-stat-number'>
+                      <StatNumber fontSize='1.5rem'>$340.5</StatNumber>
+                    </Box>
+                  </Box>
+                  <StatHelpText
+                    color='green.500'
+                    marginTop='0.4rem'
+                    fontSize='1.05rem'
+                  >
+                    <StatArrow type='increase' /> 2.45%
+                  </StatHelpText>
+                </Box>
+              </Stat>
+            </GridItem>
+            <GridItem
+              className='dashboard-stat-card'
+              bg='white'
+              width='22vw'
+              borderRadius='12px'
+              boxShadow='md'
+              p={4}
+            >
+              <Stat>
+                <Box
+                  padding='.5rem'
+                  display='flex'
+                  alignItems='center'
+                  justifyContent='space-between'
+                >
+                  <Box className='dashboard-icon'>
+                    <Icon
+                      as={FaChartSimple}
+                      w={6}
+                      h={6}
+                      color='black'
+                    />
+                  </Box>
+                  <Box
+                    className='dashboard-stat-info'
+                    textAlign='center'
+                  >
+                    <StatLabel
+                      fontSize='sm'
+                      color='gray.500'
+                    >
+                      Earnings
+                    </StatLabel>
+                    <Box className='dashboard-stat-number'>
+                      <StatNumber fontSize='1.5rem'>$340.5</StatNumber>
+                    </Box>
+                  </Box>
+                  <StatHelpText
+                    color='green.500'
+                    marginTop='0.4rem'
+                    fontSize='1.05rem'
+                  >
+                    <StatArrow type='increase' /> 2.45%
+                  </StatHelpText>
+                </Box>
+              </Stat>
+            </GridItem>
+            <GridItem
+              className='dashboard-stat-card'
+              bg='white'
+              width='22vw'
+              borderRadius='12px'
+              boxShadow='md'
+              p={4}
+            >
+              <Stat>
+                <Box
+                  padding='.5rem'
+                  display='flex'
+                  alignItems='center'
+                  justifyContent='space-between'
+                >
+                  <Box className='dashboard-icon'>
+                    <Icon
+                      as={FaChartSimple}
+                      w={6}
+                      h={6}
+                      color='black'
+                    />
+                  </Box>
+                  <Box
+                    className='dashboard-stat-info'
+                    textAlign='center'
+                  >
+                    <StatLabel
+                      fontSize='sm'
+                      color='gray.500'
+                    >
+                      Earnings
+                    </StatLabel>
+                    <Box className='dashboard-stat-number'>
+                      <StatNumber fontSize='1.5rem'>$340.5</StatNumber>
+                    </Box>
+                  </Box>
+                  <StatHelpText
+                    color='green.500'
+                    marginTop='0.4rem'
+                    fontSize='1.05rem'
+                  >
+                    <StatArrow type='increase' /> 2.45%
+                  </StatHelpText>
+                </Box>
+              </Stat>
+            </GridItem>
+            <GridItem
+              className='dashboard-stat-card'
+              bg='white'
+              width='22vw'
+              borderRadius='12px'
+              boxShadow='md'
+              p={4}
+            >
+              <Stat>
+                <Box
+                  padding='.5rem'
+                  display='flex'
+                  alignItems='center'
+                  justifyContent='space-between'
+                >
+                  <Box className='dashboard-icon'>
+                    <Icon
+                      as={FaChartSimple}
+                      w={6}
+                      h={6}
+                      color='black'
+                    />
+                  </Box>
+                  <Box
+                    className='dashboard-stat-info'
+                    textAlign='center'
+                  >
+                    <StatLabel
+                      fontSize='sm'
+                      color='gray.500'
+                    >
+                      Earnings
+                    </StatLabel>
+                    <Box className='dashboard-stat-number'>
+                      <StatNumber fontSize='1.5rem'>$340.5</StatNumber>
+                    </Box>
+                  </Box>
+                  <StatHelpText
+                    color='green.500'
+                    marginTop='0.4rem'
+                    fontSize='1.05rem'
+                  >
+                    <StatArrow type='increase' /> 2.45%
+                  </StatHelpText>
+                </Box>
+              </Stat>
+            </GridItem>
+            <GridItem
+              className='dashboard-stat-card'
+              bg='white'
+              width='22vw'
+              borderRadius='12px'
+              boxShadow='md'
+              p={4}
+            >
+              <Stat>
+                <Box
+                  padding='.5rem'
+                  display='flex'
+                  alignItems='center'
+                  justifyContent='space-between'
+                >
+                  <Box className='dashboard-icon'>
+                    <Icon
+                      as={FaChartSimple}
+                      w={6}
+                      h={6}
+                      color='black'
+                    />
+                  </Box>
+                  <Box
+                    className='dashboard-stat-info'
+                    textAlign='center'
+                  >
+                    <StatLabel
+                      fontSize='sm'
+                      color='gray.500'
+                    >
+                      Earnings
+                    </StatLabel>
+                    <Box className='dashboard-stat-number'>
+                      <StatNumber fontSize='1.5rem'>$340.5</StatNumber>
+                    </Box>
+                  </Box>
+                  <StatHelpText
+                    color='red.500'
+                    marginTop='0.4rem'
+                    fontSize='1.05rem'
+                  >
+                    <StatArrow type='decrease' /> 2.45%
+                  </StatHelpText>
+                </Box>
+              </Stat>
+            </GridItem>
           </Grid>
         </div>
 
@@ -321,7 +517,7 @@ function Dashboard() {
                   dataKey='revenue'
                   stroke='#7f5cff'
                   strokeWidth={4}
-                  dot={{ r: 6 }}
+                  dot={{ r: 4 }}
                   activeDot={{ r: 8 }}
                 />
                 <Line
@@ -329,7 +525,7 @@ function Dashboard() {
                   dataKey='profit'
                   stroke='#76e0ff'
                   strokeWidth={4}
-                  dot={{ r: 6 }}
+                  dot={{ r: 4 }}
                   activeDot={{ r: 8 }}
                 />
               </LineChart>
