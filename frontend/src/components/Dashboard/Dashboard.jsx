@@ -8,7 +8,14 @@ import {
   FaExclamationCircle,
   FaUserCircle,
 } from 'react-icons/fa'
-import { FaChartSimple } from 'react-icons/fa6'
+import { IoInformationCircle } from 'react-icons/io5'
+import { AiOutlineDollarCircle } from 'react-icons/ai'
+import { SlEnvolope } from 'react-icons/sl'
+import { SlDocs } from 'react-icons/sl'
+import { IoWarningOutline } from 'react-icons/io5'
+import { GrDocumentPerformance } from 'react-icons/gr'
+import { MdOutlinePendingActions } from 'react-icons/md'
+
 import {
   Stat,
   StatLabel,
@@ -203,7 +210,7 @@ function Dashboard() {
                 <FaBell />
               </button>
               <button className='icon-button'>
-                <FaExclamationCircle />
+                <IoInformationCircle size={20} />
               </button>
               <button className='profile-icon'>
                 <FaUserCircle size={20} />
@@ -217,56 +224,293 @@ function Dashboard() {
             templateColumns='repeat(3, 1fr)'
             gap={10}
           >
-            {[...Array(6)].map((_, index) => (
-              <GridItem
-                key={index}
-                className='dashboard-stat-card'
-                bg='white'
-                width='22vw'
-                borderRadius='12px'
-                boxShadow='md'
-                p={4}
-              >
-                <Stat>
-                  <Box
-                    padding='.5rem'
-                    display='flex'
-                    alignItems='center'
-                    justifyContent='space-between'
-                  >
-                    <Box className='dashboard-icon'>
-                      <Icon
-                        as={FaChartSimple}
-                        w={6}
-                        h={6}
-                        color='black'
-                      />
-                    </Box>
-                    <Box
-                      className='dashboard-stat-info'
-                      textAlign='center'
-                    >
-                      <StatLabel
-                        fontSize='sm'
-                        color='gray.500'
-                      >
-                        Earnings
-                      </StatLabel>
-                      <Box className='dashboard-stat-number'>
-                        <StatNumber fontSize='1.5rem'>$340.5</StatNumber>
-                      </Box>
-                    </Box>
-                    <StatHelpText
-                      color='green.500'
-                      marginTop='0.4rem'
-                      fontSize='1.05rem'
-                    >
-                      <StatArrow type='increase' /> 2.45%
-                    </StatHelpText>
+            <GridItem
+              className='dashboard-stat-card'
+              bg='white'
+              width='22vw'
+              borderRadius='12px'
+              boxShadow='md'
+              p={4}
+            >
+              <Stat>
+                <Box
+                  padding='.5rem'
+                  display='flex'
+                  alignItems='center'
+                  justifyContent='space-between'
+                >
+                  <Box className='dashboard-icon'>
+                    <Icon
+                      as={AiOutlineDollarCircle}
+                      w={6}
+                      h={6}
+                      color='black'
+                    />
                   </Box>
-                </Stat>
-              </GridItem>
-            ))}
+                  <Box
+                    className='dashboard-stat-info'
+                    textAlign='center'
+                  >
+                    <StatLabel
+                      fontSize='sm'
+                      color='gray.500'
+                    >
+                      Earnings
+                    </StatLabel>
+                    <Box className='dashboard-stat-number'>
+                      <StatNumber fontSize='1.5rem'>$340.5</StatNumber>
+                    </Box>
+                  </Box>
+                  <StatHelpText
+                    color='green.500'
+                    marginTop='0.4rem'
+                    fontSize='1.05rem'
+                  >
+                    <StatArrow type='increase' /> 2.45%
+                  </StatHelpText>
+                </Box>
+              </Stat>
+            </GridItem>
+
+            <GridItem
+              className='dashboard-stat-card'
+              bg='white'
+              width='22vw'
+              borderRadius='12px'
+              boxShadow='md'
+              p={4}
+            >
+              <Stat>
+                <Box
+                  padding='.5rem'
+                  display='flex'
+                  alignItems='center'
+                  justifyContent='space-between'
+                >
+                  <Box className='dashboard-icon'>
+                    <Icon
+                      as={SlEnvolope}
+                      w={6}
+                      h={6}
+                      color='black'
+                    />
+                  </Box>
+                  <Box
+                    className='dashboard-stat-info'
+                    textAlign='center'
+                  >
+                    <StatLabel
+                      fontSize='sm'
+                      color='gray.500'
+                    >
+                      Active Tickets
+                    </StatLabel>
+                    <Box className='dashboard-stat-number'>
+                      <StatNumber fontSize='1.5rem'>15</StatNumber>
+                    </Box>
+                  </Box>
+                  <StatHelpText
+                    color='green.500'
+                    marginTop='0.4rem'
+                    fontSize='1.05rem'
+                  >
+                    <StatArrow type='increase' /> 2.45%
+                  </StatHelpText>
+                </Box>
+              </Stat>
+            </GridItem>
+
+            <GridItem
+              className='dashboard-stat-card'
+              bg='white'
+              width='22vw'
+              borderRadius='12px'
+              boxShadow='md'
+              p={4}
+            >
+              <Stat>
+                <Box
+                  padding='.5rem'
+                  display='flex'
+                  alignItems='center'
+                  justifyContent='space-between'
+                >
+                  <Box className='dashboard-icon'>
+                    <Icon
+                      as={SlDocs}
+                      w={6}
+                      h={6}
+                      color='black'
+                    />
+                  </Box>
+                  <Box
+                    className='dashboard-stat-info'
+                    textAlign='center'
+                  >
+                    <StatLabel
+                      fontSize='sm'
+                      color='gray.500'
+                    >
+                      Reports
+                    </StatLabel>
+                    <Box className='dashboard-stat-number'>
+                      <StatNumber fontSize='1.5rem'>50</StatNumber>
+                    </Box>
+                  </Box>
+                  <StatHelpText
+                    color='green.500'
+                    marginTop='0.4rem'
+                    fontSize='1.05rem'
+                  >
+                    <StatArrow type='increase' /> 2.45%
+                  </StatHelpText>
+                </Box>
+              </Stat>
+            </GridItem>
+
+            <GridItem
+              className='dashboard-stat-card'
+              bg='white'
+              width='22vw'
+              borderRadius='12px'
+              boxShadow='md'
+              p={4}
+            >
+              <Stat>
+                <Box
+                  padding='.5rem'
+                  display='flex'
+                  alignItems='center'
+                  justifyContent='space-between'
+                >
+                  <Box className='dashboard-icon'>
+                    <Icon
+                      as={IoWarningOutline}
+                      w={6}
+                      h={6}
+                      color='black'
+                    />
+                  </Box>
+                  <Box
+                    className='dashboard-stat-info'
+                    textAlign='center'
+                  >
+                    <StatLabel
+                      fontSize='sm'
+                      color='gray.500'
+                    >
+                      Threats
+                    </StatLabel>
+                    <Box className='dashboard-stat-number'>
+                      <StatNumber fontSize='1.5rem'>2</StatNumber>
+                    </Box>
+                  </Box>
+                  <StatHelpText
+                    color='green.500'
+                    marginTop='0.4rem'
+                    fontSize='1.05rem'
+                  >
+                    <StatArrow type='increase' /> 2.45%
+                  </StatHelpText>
+                </Box>
+              </Stat>
+            </GridItem>
+
+            <GridItem
+              className='dashboard-stat-card'
+              bg='white'
+              width='22vw'
+              borderRadius='12px'
+              boxShadow='md'
+              p={4}
+            >
+              <Stat>
+                <Box
+                  padding='.5rem'
+                  display='flex'
+                  alignItems='center'
+                  justifyContent='space-between'
+                >
+                  <Box className='dashboard-icon'>
+                    <Icon
+                      as={GrDocumentPerformance}
+                      w={6}
+                      h={6}
+                      color='black'
+                    />
+                  </Box>
+                  <Box
+                    className='dashboard-stat-info'
+                    textAlign='center'
+                  >
+                    <StatLabel
+                      fontSize='sm'
+                      color='gray.500'
+                    >
+                      Performance
+                    </StatLabel>
+                    <Box className='dashboard-stat-number'>
+                      <StatNumber fontSize='1.5rem'>70%</StatNumber>
+                    </Box>
+                  </Box>
+                  <StatHelpText
+                    color='green.500'
+                    marginTop='0.4rem'
+                    fontSize='1.05rem'
+                  >
+                    <StatArrow type='increase' /> 2.45%
+                  </StatHelpText>
+                </Box>
+              </Stat>
+            </GridItem>
+
+            <GridItem
+              className='dashboard-stat-card'
+              bg='white'
+              width='22vw'
+              borderRadius='12px'
+              boxShadow='md'
+              p={4}
+            >
+              <Stat>
+                <Box
+                  padding='.5rem'
+                  display='flex'
+                  alignItems='center'
+                  justifyContent='space-between'
+                >
+                  <Box className='dashboard-icon'>
+                    <Icon
+                      as={MdOutlinePendingActions}
+                      w={6}
+                      h={6}
+                      color='black'
+                    />
+                  </Box>
+                  <Box
+                    className='dashboard-stat-info'
+                    textAlign='center'
+                  >
+                    <StatLabel
+                      fontSize='sm'
+                      color='gray.500'
+                    >
+                      Patches Pending
+                    </StatLabel>
+                    <Box className='dashboard-stat-number'>
+                      <StatNumber fontSize='1.5rem'>35</StatNumber>
+                    </Box>
+                  </Box>
+                  <StatHelpText
+                    color='green.500'
+                    marginTop='0.4rem'
+                    fontSize='1.05rem'
+                  >
+                    <StatArrow type='increase' /> 2.45%
+                  </StatHelpText>
+                </Box>
+              </Stat>
+            </GridItem>
           </Grid>
         </div>
 
