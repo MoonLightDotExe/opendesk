@@ -9,7 +9,14 @@ import {
   FaUserCircle,
   FaUsers,
 } from 'react-icons/fa'
-import { FaChartSimple } from 'react-icons/fa6'
+import { IoInformationCircle } from 'react-icons/io5'
+import { AiOutlineDollarCircle } from 'react-icons/ai'
+import { SlEnvolope } from 'react-icons/sl'
+import { SlDocs } from 'react-icons/sl'
+import { IoWarningOutline } from 'react-icons/io5'
+import { GrDocumentPerformance } from 'react-icons/gr'
+import { MdOutlinePendingActions } from 'react-icons/md'
+
 import {
   Stat,
   StatLabel,
@@ -166,7 +173,7 @@ function Dashboard() {
                 <FaBell />
               </button>
               <button className='icon-button'>
-                <FaExclamationCircle />
+                <IoInformationCircle size={20} />
               </button>
               <button className='profile-icon'>
                 <FaUserCircle size={20} />
@@ -197,7 +204,7 @@ function Dashboard() {
                 >
                   <Box className='dashboard-icon'>
                     <Icon
-                      as={FaChartSimple}
+                      as={AiOutlineDollarCircle}
                       w={6}
                       h={6}
                       color='black'
@@ -245,7 +252,7 @@ function Dashboard() {
                 >
                   <Box className='dashboard-icon'>
                     <Icon
-                      as={FaChartSimple}
+                      as={SlEnvolope}
                       w={6}
                       h={6}
                       color='black'
@@ -259,10 +266,10 @@ function Dashboard() {
                       fontSize='sm'
                       color='gray.500'
                     >
-                      Earnings
+                      Active Tickets
                     </StatLabel>
                     <Box className='dashboard-stat-number'>
-                      <StatNumber fontSize='1.5rem'>$340.5</StatNumber>
+                      <StatNumber fontSize='1.5rem'>15</StatNumber>
                     </Box>
                   </Box>
                   <StatHelpText
@@ -275,6 +282,7 @@ function Dashboard() {
                 </Box>
               </Stat>
             </GridItem>
+
             <GridItem
               className='dashboard-stat-card'
               bg='white'
@@ -292,7 +300,7 @@ function Dashboard() {
                 >
                   <Box className='dashboard-icon'>
                     <Icon
-                      as={FaChartSimple}
+                      as={SlDocs}
                       w={6}
                       h={6}
                       color='black'
@@ -306,10 +314,10 @@ function Dashboard() {
                       fontSize='sm'
                       color='gray.500'
                     >
-                      Earnings
+                      Reports
                     </StatLabel>
                     <Box className='dashboard-stat-number'>
-                      <StatNumber fontSize='1.5rem'>$340.5</StatNumber>
+                      <StatNumber fontSize='1.5rem'>50</StatNumber>
                     </Box>
                   </Box>
                   <StatHelpText
@@ -322,6 +330,7 @@ function Dashboard() {
                 </Box>
               </Stat>
             </GridItem>
+
             <GridItem
               className='dashboard-stat-card'
               bg='white'
@@ -339,7 +348,7 @@ function Dashboard() {
                 >
                   <Box className='dashboard-icon'>
                     <Icon
-                      as={FaChartSimple}
+                      as={IoWarningOutline}
                       w={6}
                       h={6}
                       color='black'
@@ -353,10 +362,10 @@ function Dashboard() {
                       fontSize='sm'
                       color='gray.500'
                     >
-                      Earnings
+                      Threats
                     </StatLabel>
                     <Box className='dashboard-stat-number'>
-                      <StatNumber fontSize='1.5rem'>$340.5</StatNumber>
+                      <StatNumber fontSize='1.5rem'>2</StatNumber>
                     </Box>
                   </Box>
                   <StatHelpText
@@ -369,6 +378,7 @@ function Dashboard() {
                 </Box>
               </Stat>
             </GridItem>
+
             <GridItem
               className='dashboard-stat-card'
               bg='white'
@@ -386,7 +396,7 @@ function Dashboard() {
                 >
                   <Box className='dashboard-icon'>
                     <Icon
-                      as={FaChartSimple}
+                      as={GrDocumentPerformance}
                       w={6}
                       h={6}
                       color='black'
@@ -400,10 +410,10 @@ function Dashboard() {
                       fontSize='sm'
                       color='gray.500'
                     >
-                      Earnings
+                      Performance
                     </StatLabel>
                     <Box className='dashboard-stat-number'>
-                      <StatNumber fontSize='1.5rem'>$340.5</StatNumber>
+                      <StatNumber fontSize='1.5rem'>70%</StatNumber>
                     </Box>
                   </Box>
                   <StatHelpText
@@ -416,6 +426,7 @@ function Dashboard() {
                 </Box>
               </Stat>
             </GridItem>
+
             <GridItem
               className='dashboard-stat-card'
               bg='white'
@@ -433,7 +444,7 @@ function Dashboard() {
                 >
                   <Box className='dashboard-icon'>
                     <Icon
-                      as={FaChartSimple}
+                      as={MdOutlinePendingActions}
                       w={6}
                       h={6}
                       color='black'
@@ -447,18 +458,18 @@ function Dashboard() {
                       fontSize='sm'
                       color='gray.500'
                     >
-                      Earnings
+                      Patches Pending
                     </StatLabel>
                     <Box className='dashboard-stat-number'>
-                      <StatNumber fontSize='1.5rem'>$340.5</StatNumber>
+                      <StatNumber fontSize='1.5rem'>35</StatNumber>
                     </Box>
                   </Box>
                   <StatHelpText
-                    color='red.500'
+                    color='green.500'
                     marginTop='0.4rem'
                     fontSize='1.05rem'
                   >
-                    <StatArrow type='decrease' /> 2.45%
+                    <StatArrow type='increase' /> 2.45%
                   </StatHelpText>
                 </Box>
               </Stat>
