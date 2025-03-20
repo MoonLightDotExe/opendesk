@@ -1,23 +1,23 @@
-.Register-container {
+.Login-container {
   width: 100vw;
   height: 100vh;
   display: flex;
   font-family: 'Roboto Condensed', sans-serif;
 }
 
-.Register-bg-container {
+.Login-bg-container {
   width: 65vw;
   aspect-ratio: 16/9;
   overflow: hidden;
 }
 
-.Register-bg {
+.Login-bg {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-.RegContainer1 {
+.LoginContainer1 {
   height: 35vh;
   width: auto;
   display: flex;
@@ -29,13 +29,13 @@
   padding: 40px;
 }
 
-.RegisterHeader {
+.LoginHeader {
   font-size: 54px;
   margin: 0;
   letter-spacing: 10px;
 }
 
-.RegisterSubheader {
+.LoginSubheader {
   letter-spacing: 2px;
   font-size: 18px;
   color: gray;
@@ -43,7 +43,7 @@
   text-transform: uppercase;
 }
 
-.RegContainer2 {
+.LoginContainer2 {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -55,7 +55,19 @@
   font-weight: 400;
 }
 
-.RegButton {
+.ForgotPass {
+  margin-top: -1rem;
+  align-self: flex-end;
+  font-size: 15px;
+  color: gray;
+}
+
+.ForgotPass:hover {
+  font-weight: 300;
+  cursor: pointer;
+}
+
+.LoginButton {
   width: 130px;
   height: 50px;
   color: azure;
@@ -64,19 +76,10 @@
   border-radius: 8px;
   font-weight: 200;
   margin-top: 3rem;
-  transition: box-shadow 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
 }
 
-.Bottom-Text {
-  color: gray;
-  margin-top: 6rem;
-}
-
-.bottom-link:hover {
-  color: black;
-  text-decoration: underline;
-}
-.RegButton:hover {
+.LoginButton:hover {
   box-shadow: 2px 2px 2px grey;
   font-weight: 300;
 }
@@ -106,4 +109,14 @@
 
 .input-field3:hover {
   box-shadow: 2px 2px 2px grey;
+}
+
+.BottomText {
+  color: gray;
+  margin-top: 7rem;
+}
+
+.login-link:hover {
+  color: black;
+  text-decoration: underline;
 }
