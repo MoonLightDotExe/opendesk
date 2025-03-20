@@ -13,6 +13,7 @@ const connectDB = require('./config/db.config')
 const authRouter = require('./routes/auth.routes')
 const workerRouter = require('./routes/worker.routes')
 const dataRouter = require('./routes/data.routes')
+const testRouter = require('./routes/testing.routes')
 
 const PORT = process.env.PORT || 5000
 
@@ -103,6 +104,7 @@ connectDB()
 app.use(authRouter)
 app.use(workerRouter)
 app.use(dataRouter)
+app.use(testRouter)
 
 server.listen(PORT, () => {
   console.log(`Server Listening on Port: ${PORT}`)

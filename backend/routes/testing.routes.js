@@ -8,4 +8,6 @@ testingRouter.post(
   testing_controllers.generate_day_report
 )
 
+testingRouter.post('/addService', testing_controllers.add_service)
+
 module.exports = testingRouter
