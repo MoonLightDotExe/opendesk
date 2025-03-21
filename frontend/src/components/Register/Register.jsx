@@ -12,17 +12,14 @@ function Register() {
   const [confirm_password, setConfirm_password] = useState('')
 
   const handleChange_1 = (e) => {
-    console.log(e.target.value)
     setEmail(e.target.value)
   }
 
   const handleChange_2 = (e) => {
-    console.log(e.target.value)
     setCreate_password(e.target.value)
   }
 
   const handleChange_3 = (e) => {
-    console.log(e.target.value)
     setConfirm_password(e.target.value)
   }
 

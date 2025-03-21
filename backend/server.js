@@ -14,6 +14,7 @@ const authRouter = require('./routes/auth.routes')
 const workerRouter = require('./routes/worker.routes')
 const dataRouter = require('./routes/data.routes')
 const testRouter = require('./routes/testing.routes')
+const userRouter = require('./routes/users.routes')
 
 const PORT = process.env.PORT || 5000
 
@@ -26,6 +27,8 @@ app.use(
     origin: 'http://localhost:5173',
   })
 )
+app.use(express.urlencoded({ extended: false }))
+app.use(bodyParser.json({ limit: '30mb', extended: true }))
 
 AWS.config.update({
   accessKeyId: process.env.AWS_ACCESS_KEY_ID,
@@ -36,37 +39,16 @@ AWS.config.update({
 const s3 = new AWS.S3()
 app.use(express.json({ limit: '50mb' }))
 
-// WebSocket Connection
 io.on('connection', (socket) => {
-  console.log('A user connected:', socket.id)
+  socket.on('message', (data) => {})
 
-  // Handle Performance Estimation Messages
-  socket.on('message', (data) => {
-    testingRepository.performanceEstimation(data)
-    socket.emit('response', 'Received your message: ' + data)
-  })
-
-  // New WebSocket Event for Pushing Data to MongoDB
-  socket.on('push_data', async (data) => {
-    try {
-      console.log('Received Data for MongoDB:', data)
-
-      await dataRepository.commitData(data)
-      console.log('Data saved to MongoDB')
-
-      socket.emit('data_saved', { message: 'Data successfully stored!' })
-    } catch (error) {
-      console.error('Error saving data:', error)
-      socket.emit('error', { message: 'Failed to store data!' })
-    }
-  })
+  socket.on('push_data', async (data) => {})
 
   socket.on('disconnect', () => {
     console.log('A user disconnected:', socket.id)
   })
 })
 
-// Upload to S3
 app.post('/api/upload', (req, res) => {
   const { imageData, folder } = req.body
   console.log('Received upload request:', req.body)
@@ -96,15 +78,13 @@ app.post('/api/upload', (req, res) => {
   })
 })
 
-app.use(express.urlencoded({ extended: false }))
-app.use(bodyParser.json({ limit: '30mb', extended: true }))
-
 connectDB()
 
 app.use(authRouter)
 app.use(workerRouter)
 app.use(dataRouter)
 app.use(testRouter)
+app.use(userRouter)
 
 server.listen(PORT, () => {
   console.log(`Server Listening on Port: ${PORT}`)

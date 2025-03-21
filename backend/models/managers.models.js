@@ -19,13 +19,17 @@ const managerSchema = new mongoose.Schema({
   },
   employees: [
     {
-      id: {
+      employee_id: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'employees',
       },
-      rank: {
+      employee_name: {
         type: String,
         required: true,
+      },
+      rank: {
+        type: String,
+        // required: true,
       },
     },
   ],
