@@ -15,6 +15,8 @@ import {
 } from '@chakra-ui/react'
 import { FaBell, FaUserCircle, FaExclamationCircle } from 'react-icons/fa'
 import { IoInformationCircle } from 'react-icons/io5'
+import { FaCheck } from 'react-icons/fa6'
+import { IoClose } from 'react-icons/io5'
 
 function Report() {
   return (
@@ -86,6 +88,15 @@ function Report() {
         <div className='report-container-bottom'>Unknown Services</div>
         <div className='report-container-cards'>
           <div className='report-container-card1'>Service Name</div>
+          <div className='report-container-cardButtons'>
+            <button className='report-btn report-yes'>
+              <FaCheck size={25} />
+            </button>
+            <button className='report-btn report-neutral'>N</button>
+            <button className='report-btn report-no'>
+              <IoClose size={25} />
+            </button>
+          </div>
         </div>
       </div>
     </div>

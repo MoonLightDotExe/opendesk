@@ -34,7 +34,7 @@ function App() {
         console.log('decodedToken')
         console.log(decodedToken.exp)
         console.log(currentTime)
-        navigate('/dashboard')
+        // navigate('/dashboard')
       }
     } else {
       console.log('Error Decoding token')
