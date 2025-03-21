@@ -9,6 +9,7 @@ import Login from './components/Login/Login.jsx'
 import Dashboard from './components/Dashboard/Dashboard'
 import Employee from './components/Employee/Employee.jsx'
 import Profile from './components/Profile/Profile.jsx'
+import Report from './components/Report/Report.jsx'
 
 import './App.css'
 
@@ -43,6 +44,10 @@ function App() {
         <Route
           path='/profile'
           Component={Profile}
+        />
+        <Route
+          path='/report'
+          Component={Report}
         />
       </Routes>
     </Router>
