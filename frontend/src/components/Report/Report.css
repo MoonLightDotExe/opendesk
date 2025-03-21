@@ -1,0 +1,49 @@
+.report-container {
+  margin-left: 1rem;
+  display: flex;
+  gap: 3rem;
+}
+
+.report-container-select {
+  width: 150px;
+}
+
+.report-container-box {
+  display: flex;
+  align-items: center;
+  margin-left: 1.3rem;
+  margin-top: 35px;
+  background-color: gray;
+  width: 76vw;
+  height: 100vh;
+}
+
+.report-container-bottom {
+  margin-top: 1.6rem;
+  font-size: 23px;
+  font-weight: 500;
+  margin-left: 1.4rem;
+}
+
+.report-container-cards {
+  margin-top: 1.6rem;
+  margin-left: 1.4rem;
+  background-color: white;
+  width: 25vw;
+  height: 25vh;
+  border-radius: 10px;
+  border: 1.5px, solid black;
+}
+
+.report-container-card1 {
+  background-color: rgba(128, 128, 128, 0.805);
+  border-radius: 10px;
+  border: 1.5px, solid black;
+  width: 15vw;
+  height: 5vh;
+  font-size: 19px;
+  font-weight: 400;
+  justify-content: center;
+  position: absolute;
+  text-align: center;
+}
