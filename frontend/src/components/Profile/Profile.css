@@ -1,0 +1,91 @@
+.profile-container {
+  width: 75vw;
+  height: 50vh;
+  background-color: #fff;
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-left: 2rem;
+  font-family: 'Roboto', sans-serif;
+}
+
+.profile-container-img {
+  width: 5rem;
+  height: 5rem;
+  background-color: black;
+  border-radius: 50%;
+  aspect-ratio: 9/16;
+  object-fit: cover;
+}
+
+.profile-container-heading {
+  gap: 2rem;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-family: 'Roboto', sans-serif;
+}
+
+.profile-container-header {
+  font-size: 24px;
+  font-weight: 500;
+}
+
+.profile-container-subheader {
+  color: #00000098;
+  font-size: 18px;
+}
+
+.profile-container-stats {
+  width: 60vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.profile-container-idNum {
+  font-size: 1.3rem;
+  font-weight: 500;
+}
+
+.profile-container-idName {
+  color: #00000098;
+  font-size: 19px;
+  /* font-weight: 500; */
+  text-align: center;
+}
+
+.profile-container-projects {
+  font-size: 14px;
+  margin-left: 1rem;
+}
+
+.profile-container-projectNum {
+  text-align: center;
+  font-size: 1.3rem;
+  font-weight: 500;
+}
+
+.profile-container-projectName {
+  color: #00000098;
+  font-size: 19px;
+  /* font-weight: 500; */
+  /* margin-left: 2rem; */
+  text-align: center;
+}
+
+.profile-container-managerNum {
+  font-size: 1.3rem;
+  font-weight: 500;
+  text-align: center;
+}
+
+.profile-container-managerName {
+  color: #00000098;
+  font-size: 19px;
+  /* font-weight: 500; */
+  text-align: center;
+}

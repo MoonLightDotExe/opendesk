@@ -8,6 +8,7 @@ import Register from './components/Register/Register.jsx'
 import Login from './components/Login/Login.jsx'
 import Dashboard from './components/Dashboard/Dashboard'
 import Employee from './components/Employee/Employee.jsx'
+import Profile from './components/Profile/Profile.jsx'
 
 import './App.css'
 
@@ -38,6 +39,10 @@ function App() {
         <Route
           path='/employee'
           Component={Employee}
+        />
+        <Route
+          path='/profile'
+          Component={Profile}
         />
       </Routes>
     </Router>
