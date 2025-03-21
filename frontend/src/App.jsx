@@ -55,7 +55,7 @@ function App() {
           />
           <Route
             path='/*'
-            Component={Register}
+            Component={Login}
           />
         </>
       )}
