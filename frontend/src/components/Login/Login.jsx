@@ -1,7 +1,10 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useContext, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import { Input } from '@chakra-ui/react'
 import axios from 'axios'
+import { ToastContainer, toast, Bounce } from 'react-toastify'
+
+import mainContext from '../../context/main'
 
 import bg from '../../assets/background.jpg'
 import './Login.css'
@@ -10,13 +13,15 @@ function Login() {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
 
+  const navigate = useNavigate()
+
+  const { loginUser } = useContext(mainContext)
+
   const handleChange = (e) => {
-    console.log(e.target.value)
     setUsername(e.target.value)
   }
 
   const handleChange_2 = (e) => {
-    console.log(e.target.value)
     setPassword(e.target.value)
   }
 
@@ -27,13 +32,49 @@ function Login() {
 
   const handleClick = async () => {
     try {
-      const data = await axios.post(
-        'http://127.0.0.1:5000/loginEmployee',
-        send_data
-      )
-      console.log(data)
+      const data = await loginUser(send_data)
+      console.log(data.success)
+      if (data.success) {
+        toast.success('Logged in successfully!', {
+          position: 'bottom-right',
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: false,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'light',
+          transition: Bounce,
+        })
+        setTimeout(() => {
+          navigate('/dashboard')
+          window.location.reload()
+        }, 3000)
+      } else {
+        toast.error('Invalid Credentials!', {
+          position: 'bottom-right',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: false,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'light',
+          transition: Bounce,
+        })
+      }
     } catch (error) {
-      console.log(error)
+      toast.error('Invalid Credentials!', {
+        position: 'bottom-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+        transition: Bounce,
+      })
     }
   }
 
@@ -89,6 +130,19 @@ function Login() {
           >
             Sign Up
           </Link>
+          <ToastContainer
+            position='bottom-right'
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick={false}
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme='light'
+            transition={Bounce}
+          />
         </div>
       </div>
     </div>
