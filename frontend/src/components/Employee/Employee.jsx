@@ -20,13 +20,13 @@ import {
 } from '@chakra-ui/react'
 import {
   FaBell,
-  FaExclamationCircle,
   FaUserCircle,
   FaCheckCircle,
   FaTimesCircle,
   FaExclamationTriangle,
 } from 'react-icons/fa'
 import { FiMoreHorizontal } from 'react-icons/fi'
+import { IoInformationCircle } from 'react-icons/io5'
 
 import SidebarCustom from '../../shared/Sidebar/SidebarCustom'
 import './Employee.css'
@@ -122,31 +122,22 @@ function Employee() {
           </div>
 
           <div className='dashboard-profile-bar'>
-            <Input
+            <input
               type='text'
               className='search-bar'
               placeholder='Search...'
             />
-            <Flex alignItems='center'>
-              <Button
-                className='icon-button'
-                mr={2}
-              >
-                <Icon as={FaBell} />
-              </Button>
-              <Button
-                className='icon-button'
-                mr={2}
-              >
-                <Icon as={FaExclamationCircle} />
-              </Button>
-              <Button className='profile-icon'>
-                <Avatar
-                  as={FaUserCircle}
-                  size='sm'
-                />
-              </Button>
-            </Flex>
+            <div className='icon-container'>
+              <button className='icon-button'>
+                <FaBell />
+              </button>
+              <button className='icon-button'>
+                <IoInformationCircle size={20} />
+              </button>
+              <button className='profile-icon'>
+                <FaUserCircle size={20} />
+              </button>
+            </div>
           </div>
         </div>
 
