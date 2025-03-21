@@ -11,6 +11,7 @@ import Employee from './components/Employee/Employee.jsx'
 import EmployeeList from './components/EmployeeList/EmployeeList.jsx'
 
 import mainContext from './context/main.jsx'
+import Profile from './components/Profile/Profile.jsx'
 
 import './App.css'
 
@@ -78,6 +79,10 @@ function App() {
           <Route
             path='/employee-list'
             Component={EmployeeList}
+          />
+          <Route
+            path='/profile'
+            Component={Profile}
           />
         </>
       )}
