@@ -9,11 +9,9 @@ import {
   FaUserCircle,
   FaUsers,
 } from 'react-icons/fa'
-import { IoInformationCircle } from 'react-icons/io5'
+import { IoInformationCircle, IoWarningOutline } from 'react-icons/io5'
 import { AiOutlineDollarCircle } from 'react-icons/ai'
-import { SlEnvolope } from 'react-icons/sl'
-import { SlDocs } from 'react-icons/sl'
-import { IoWarningOutline } from 'react-icons/io5'
+import { SlEnvolope, SlDocs } from 'react-icons/sl'
 import { GrDocumentPerformance } from 'react-icons/gr'
 import { MdOutlinePendingActions } from 'react-icons/md'
 
@@ -60,9 +58,9 @@ const data = [
 ]
 
 const pieData = [
-  { name: 'Your Files', value: 63, color: '#7f5cff' }, // Purple
-  { name: 'System', value: 25, color: '#76e0ff' }, // Light Blue
-  { name: 'Other', value: 12, color: '#e8f1ff' }, // Lightest Blue
+  { name: 'Your Files', value: 63, color: '#7f5cff' },
+  { name: 'System', value: 25, color: '#76e0ff' },
+  { name: 'Other', value: 12, color: '#e8f1ff' },
 ]
 
 const barData = [
@@ -477,7 +475,6 @@ function Dashboard() {
           </Grid>
         </div>
 
-        {/* Line Chart Grid Item */}
         <Grid
           templateColumns='repeat(3, 1fr)'
           gap={5}

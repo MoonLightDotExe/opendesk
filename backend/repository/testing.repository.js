@@ -22,15 +22,70 @@ const self = (module.exports = {
         }
 
         let totalDayOccurences = 0
+        let totalPositive = 0
+        let totalNegative = 0
+        let threatDetected = 0
+        let totalUnknown = 0
+
+        let positiveServices = []
+        let negativeServices = []
+        let threats = []
+        let unknownServices = []
 
         userDay.data.map((user) => {
           totalDayOccurences += user.occurences
         })
 
-        const calculatePercentage = userDay.data.map((user) => {})
+        let imported_services = await services.find({})
 
-        console.log(totalDayOccurences)
-        resolve(userDay)
+        userDay.data.map((user) => {
+          let service_found = imported_services.find((e) => {
+            return e.name == user.field
+          })
+          // console.log(service_found)
+          if (service_found) {
+            // console.log(service_found)
+            if (service_found.type == 0) {
+              totalPositive += user.occurences
+              positiveServices.push(user.field)
+            } else if (service_found.type == 1) {
+              totalNegative += user.occurences
+              negativeServices.push(user.field)
+            } else if (service_found.type == 2) {
+              threatDetected += 1
+              threats.push(user.field)
+            } else {
+              totalUnknown += user.occurences
+              unknownServices.push(user.field)
+            }
+          } else {
+            totalUnknown += user.occurences
+            unknownServices.push(user.field)
+          }
+        })
+
+        let finalReportOccurences = {
+          totalDayOccurences,
+          totalPositive,
+          totalNegative,
+          totalUnknown,
+          threatDetected,
+        }
+
+        let finalReportServices = {
+          positiveServices,
+          negativeServices,
+          threats,
+          unknownServices,
+        }
+
+        let finalReport = {
+          finalReportOccurences,
+          finalReportServices,
+        }
+
+        console.log(finalReport)
+        resolve(finalReport)
       } catch (err) {
         reject(err)
       }
