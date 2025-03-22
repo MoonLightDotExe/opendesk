@@ -95,10 +95,10 @@
   height: 122vh;
   width: 45vw;
   border-radius: 10px;
-  margin-top: 1.8rem;
+  /* margin-top: 1.8rem; */
   padding: 2rem;
   padding-right: 1.5rem;
-  margin-left: 1.9rem;
+  /* margin-left: 1.9rem; */
 }
 
 .profile-container-projectheader {
@@ -106,5 +106,53 @@
   font-weight: 500;
 }
 
-.profile-conatiner-projectsubheader {
+.profile-container-projectsubheader {
+  margin-top: 1.6;
+}
+
+.profile-container-personal-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1.8rem;
+  margin-left: 1.9rem;
+}
+
+.profile-container-generalinfo {
+  height: 122vh;
+  width: 28vw;
+  background-color: white;
+  border-radius: 10px;
+  margin: 1rem;
+  margin-right: 2.8rem;
+}
+
+.profile-container-generalinfo-header {
+  font-size: 29px;
+  font-weight: 500;
+  margin-left: 1.7rem;
+  margin-top: 1.9rem;
+}
+
+.profile-conatiner-generalinfo-card {
+  background-color: #f6f5f5;
+  border-radius: 10px;
+  border: black;
+  width: 24vw;
+  height: 12vh;
+}
+
+.profile-conatiner-generalinfo-cardhead {
+  font-size: 20px;
+  color: #808080;
+  font-weight: 500;
+  margin-left: 1.2rem;
+  margin-top: 0.5rem;
+}
+
+.profile-conatiner-generalinfo-cardname {
+  font-size: 18px;
+  font-weight: 500;
+  margin-left: 1.2rem;
+  margin-top: 0.3rem;
 }
