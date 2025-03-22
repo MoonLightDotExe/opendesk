@@ -7,6 +7,7 @@ export const MainProvider = ({ children }) => {
   const [isActiveSidebar, setIsActiveSidebar] = useState('dashboard')
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [listData, setListData] = useState([])
+  const [dayReport, setDayReport] = useState()
 
   const loginUser = async (send_data) => {
     try {
@@ -65,6 +66,19 @@ export const MainProvider = ({ children }) => {
     }
   }
 
+  const generateDayReport = async (send_data) => {
+    try {
+      const response = await axios.post(
+        'http://127.0.0.1:5000/generateDayReport',
+        send_data
+      )
+      console.log(response.data.data)
+      setDayReport(response.data.data)
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
   return (
     <mainContext.Provider
       value={{
@@ -76,6 +90,8 @@ export const MainProvider = ({ children }) => {
         handleSignOut,
         getEmployeeList,
         listData,
+        generateDayReport,
+        dayReport,
       }}
     >
       {children}
