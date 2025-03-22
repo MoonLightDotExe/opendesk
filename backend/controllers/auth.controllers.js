@@ -1,4 +1,5 @@
 const dotenv = require('dotenv').config()
+
 const auth_repo = require('../repository/auth.repository')
 
 module.exports = {

@@ -3,6 +3,10 @@ const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 
 const employeeSchema = new mongoose.Schema({
+  employee_id: {
+    type: String,
+    required: [true, 'Employee ID is required!'],
+  },
   name: {
     type: 'string',
     required: true,
@@ -19,6 +23,18 @@ const employeeSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  projects: [
+    {
+      project_id: {
+        type: String,
+        required: [true, 'Project ID is required!'],
+      },
+      project_name: {
+        type: String,
+        required: [true, 'Project Name is required!'],
+      },
+    },
+  ],
   biometrics: [
     {
       type: {

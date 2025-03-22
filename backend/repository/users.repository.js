@@ -23,6 +23,15 @@ const self = (module.exports = {
   getEmployeeInfo: (body) => {
     return new Promise(async (resolve, reject) => {
       try {
+        const { employee_id } = body
+        console.log('Employee')
+        console.log(employee_id)
+        const employeeFound = await employees.findOne({ _id: employee_id })
+        if (employeeFound) {
+          return resolve(employeeFound)
+        } else {
+          return reject('Employee Not Found! Please check Employee ID')
+        }
       } catch (err) {
         reject(err)
       }
@@ -53,6 +62,28 @@ const self = (module.exports = {
         )
         console.log(data)
         resolve(data)
+      } catch (err) {
+        reject(err)
+      }
+    })
+  },
+
+  getManagerEmployees: (body) => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const { manager_id } = body
+        const managerFound = await managers.findOne({ _id: manager_id })
+
+        if (managerFound) {
+          const employeePromises = managerFound.employees.map((e) =>
+            self.getEmployeeInfo({ employee_id: e.employee_id })
+          )
+
+          const employeesData = await Promise.all(employeePromises)
+          resolve(employeesData)
+        } else {
+          resolve('Manager not Found! Please check Manager ID')
+        }
       } catch (err) {
         reject(err)
       }
