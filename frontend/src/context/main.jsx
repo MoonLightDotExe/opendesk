@@ -6,11 +6,12 @@ const mainContext = createContext()
 export const MainProvider = ({ children }) => {
   const [isActiveSidebar, setIsActiveSidebar] = useState('dashboard')
   const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [listData, setListData] = useState([])
 
   const loginUser = async (send_data) => {
     try {
       const data = await axios.post(
-        'http://127.0.0.1:5000/loginEmployee',
+        'http://127.0.0.1:5000/loginManager',
         send_data
       )
       console.log(data.data)
@@ -19,6 +20,7 @@ export const MainProvider = ({ children }) => {
       if (data.data.success) {
         localStorage.setItem('user_id', data.data.data.id)
         localStorage.setItem('token', data.data.data.token)
+        localStorage.setItem('username', data.data.data.name)
       }
       return data.data
     } catch (err) {
@@ -30,9 +32,36 @@ export const MainProvider = ({ children }) => {
     try {
       localStorage.removeItem('user_id')
       localStorage.removeItem('token')
+      localStorage.removeItem('username')
     } catch (err) {
       console.log(err)
       return err
+    }
+  }
+
+  const getEmployeeList = async () => {
+    try {
+      const manager_id = localStorage.getItem('user_id')
+
+      const response = await axios.post(
+        'http://127.0.0.1:5000/getManagerEmployees',
+        { manager_id: manager_id }
+      )
+      let listDataArray = []
+
+      response.data.data.map((e) => {
+        let employee = {
+          id: e.employee_id,
+          employee_name: e.name,
+          projects: e.projects.length,
+          manager_name: localStorage.getItem('username'),
+        }
+        listDataArray.push(employee)
+      })
+
+      setListData(listDataArray)
+    } catch (err) {
+      console.log(err)
     }
   }
 
@@ -45,6 +74,8 @@ export const MainProvider = ({ children }) => {
         isLoggedIn,
         setIsLoggedIn,
         handleSignOut,
+        getEmployeeList,
+        listData,
       }}
     >
       {children}
