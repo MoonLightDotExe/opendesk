@@ -26,24 +26,68 @@
 }
 
 .report-container-cards {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
   margin-top: 1.6rem;
   margin-left: 1.4rem;
   background-color: white;
-  width: 25vw;
+  width: 20vw;
   height: 25vh;
   border-radius: 10px;
   border: 1.5px, solid black;
+  gap: 1rem;
 }
 
 .report-container-card1 {
-  background-color: rgba(128, 128, 128, 0.805);
+  background-color: rgb(203, 208, 203);
   border-radius: 10px;
   border: 1.5px, solid black;
   width: 15vw;
   height: 5vh;
   font-size: 19px;
   font-weight: 400;
-  justify-content: center;
-  position: absolute;
   text-align: center;
+}
+
+.report-container-cardButtons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+}
+
+.report-btn {
+  background-color: grey;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1rem;
+  width: 3.5rem;
+  height: 3.5rem;
+  border: 1.6px solid black;
+  border-radius: 10px;
+  gap: 2rem;
+  transition: all 0.3s ease-in-out;
+}
+
+.report-btn:hover {
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+  border: black;
+  font-weight: 400;
+}
+
+.report-yes {
+  background-color: #2cff79;
+}
+
+.report-neutral {
+  background-color: #e4ff49;
+  font-size: 20px;
+  font-weight: 400;
+}
+
+.report-no {
+  background-color: #f94f4f;
 }

@@ -10,6 +10,14 @@ import {
   Button,
   Icon,
   Avatar,
+  Card,
+  CardHeader,
+  CardBody,
+  CardFooter,
+  Stack,
+  Heading,
+  Image,
+  Text,
 } from '@chakra-ui/react'
 import { FaBell, FaUserCircle, FaExclamationCircle } from 'react-icons/fa'
 import { IoInformationCircle } from 'react-icons/io5'
@@ -104,6 +112,109 @@ function Profile() {
               </div>
             </div>
           </div>
+        </div>
+        <div className='profile-container-projectContainer'>
+          <div className='profile-container-projectheader'>
+            <p>PROJECTS</p>
+          </div>
+          <div className='profile-conatiner-projectsubheader'>
+            <h1>
+              Here you can find more details about your projects. Keep you user
+              engaged by providing meaningful information.
+            </h1>
+          </div>
+          <Card
+            direction={{ base: 'column', sm: 'row' }}
+            overflow='hidden'
+            variant='outline'
+            marginTop={4}
+            width='40rem'
+            height='10rem'
+          >
+            <Image
+              objectFit='cover'
+              maxW={{ base: '90%', sm: '150px' }}
+              src='https://images.unsplash.com/photo-1461749280684-dccba630e2f6?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+              alt='Caffe Latte'
+            />
+
+            <Stack>
+              <CardBody>
+                <Heading size='md'>Blog Application</Heading>
+
+                <Text py='2'>React application</Text>
+              </CardBody>
+            </Stack>
+          </Card>
+          <Card
+            direction={{ base: 'column', sm: 'row' }}
+            overflow='hidden'
+            variant='outline'
+            marginTop={4}
+            width='40rem'
+            height='10rem'
+          >
+            <Image
+              objectFit='cover'
+              maxW={{ base: '90%', sm: '150px' }}
+              src='https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+              alt='Caffe Latte'
+            />
+
+            <Stack>
+              <CardBody>
+                <Heading size='md'>PowerBI Dashboard</Heading>
+
+                <Text py='2'>Created interactive dashboard using PowerBI</Text>
+              </CardBody>
+            </Stack>
+          </Card>
+          <Card
+            direction={{ base: 'column', sm: 'row' }}
+            overflow='hidden'
+            variant='outline'
+            marginTop={4}
+            width='40rem'
+            height='10rem'
+          >
+            <Image
+              objectFit='cover'
+              maxW={{ base: '90%', sm: '150px' }}
+              src='https://images.unsplash.com/photo-1485827404703-89b55fcc595e?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+              alt='Caffe Latte'
+            />
+
+            <Stack>
+              <CardBody>
+                <Heading size='md'>Maze Solving Bot</Heading>
+
+                <Text py='2'>developed ML model</Text>
+              </CardBody>
+            </Stack>
+          </Card>
+          <Card
+            direction={{ base: 'column', sm: 'row' }}
+            overflow='hidden'
+            variant='outline'
+            marginTop={4}
+            width='40rem'
+            height='10rem'
+          >
+            <Image
+              objectFit='cover'
+              maxW={{ base: '90%', sm: '150px' }}
+              src='https://images.unsplash.com/photo-1526628953301-3e589a6a8b74?q=80&w=2006&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+              alt='Caffe Latte'
+            />
+
+            <Stack>
+              <CardBody>
+                <Heading size='md'>Expense Tracker</Heading>
+
+                <Text py='2'>Created API</Text>
+              </CardBody>
+            </Stack>
+          </Card>
         </div>
       </div>
     </div>
