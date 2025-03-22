@@ -29,4 +29,21 @@ module.exports = {
       })
     }
   },
+
+  getManagerEmployees: async (req, res) => {
+    try {
+      const data = await users_repo.getManagerEmployees(req.body)
+      res.status(200).json({
+        success: true,
+        data,
+        message: "Manager's Employees Retrieved Successfully!",
+      })
+    } catch (err) {
+      res.status(400).json({
+        success: false,
+        err,
+        message: err.message,
+      })
+    }
+  },
 }

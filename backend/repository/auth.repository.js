@@ -82,38 +82,70 @@ const self = (module.exports = {
     return new Promise(async (resolve, reject) => {
       try {
         if (!body.email || !body.password || !body.name) {
-          reject({
+          return reject({
             status: 400,
             message: 'Missing Data!',
           })
         }
+
         const userExists = await employees.findOne({ email: body.email })
 
         if (userExists) {
-          reject({
+          return reject({
             status: 401,
             message: 'Employee already exists!',
           })
-        } else {
-          const salt = await bcrypt.genSalt(10)
-          const hashedPassword = await bcrypt.hash(body.password, salt)
-          const employee = await employees.create({
-            name: body.name,
-            email: body.email,
-            password: hashedPassword,
-            clearance: body.clearance,
-            biometrics: body.biometrics,
-            manager: body.manager,
-            dailyReports: body.dailyReports,
-          })
-          resolve({
-            id: employee._id,
-            name: employee.name,
-            email: employee.email,
-            password: employee.password,
-            token: self.generateToken(employee._id),
-          })
         }
+
+        const { nanoid } = await import('nanoid')
+        const employee_id = nanoid(5)
+        console.log(employee_id)
+
+        const salt = await bcrypt.genSalt(10)
+        const hashedPassword = await bcrypt.hash(body.password, salt)
+
+        const employee = await employees.create({
+          employee_id,
+          name: body.name,
+          email: body.email,
+          password: hashedPassword,
+          projects: [
+            {
+              project_id: '123',
+              project_name: 'demoname',
+            },
+            {
+              project_id: '123',
+              project_name: 'demoname',
+            },
+            {
+              project_id: '123',
+              project_name: 'demoname',
+            },
+            {
+              project_id: '123',
+              project_name: 'demoname',
+            },
+            {
+              project_id: '123',
+              project_name: 'demoname',
+            },
+          ],
+          clearance: body.clearance,
+          biometrics: body.biometrics,
+          manager: body.manager,
+          dailyReports: body.dailyReports,
+        })
+
+        resolve({
+          id: employee._id,
+          employee_id,
+          name: employee.name,
+          email: employee.email,
+          projects: employee.projects,
+          password: employee.password,
+          token: self.generateToken(employee._id),
+        })
       } catch (err) {
         reject(err)
       }
