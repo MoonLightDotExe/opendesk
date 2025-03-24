@@ -13,6 +13,7 @@ import EmployeeList from './components/EmployeeList/EmployeeList.jsx'
 import mainContext from './context/main.jsx'
 import Profile from './components/Profile/Profile.jsx'
 import Report from './components/Report/Report.jsx'
+import Onboarding from './components/Onboarding/Onboarding.jsx'
 
 import './App.css'
 
@@ -74,7 +75,7 @@ function App() {
             Component={Dashboard}
           />
           <Route
-            path='/employee'
+            path='/employees'
             Component={Employee}
           />
           <Route
@@ -88,6 +89,10 @@ function App() {
           <Route
             path='/report'
             Component={Report}
+          />
+          <Route
+            path='/onboarding'
+            Component={Onboarding}
           />
         </>
       )}

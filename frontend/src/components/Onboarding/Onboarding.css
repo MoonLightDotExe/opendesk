@@ -1,0 +1,31 @@
+.onboarding-container-outer-box {
+  height: 95vh;
+  background-color: white;
+  border-radius: 10px;
+  border: 1px solid black;
+  margin-left: 2rem;
+  padding: 2rem;
+}
+
+.onboarding-container-heading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 25rem;
+  height: 9vh;
+  width: 19vw;
+  background-color: #d9d9d9;
+  border-radius: 10px;
+  border: 1px solid black;
+  font-size: 29px;
+  font-weight: 500;
+  margin-bottom: 2rem;
+}
+
+.onboarding-container-button {
+  height: 15px;
+  width: 35px;
+  background-color: red;
+  border-radius: 10px;
+  border: 1px solid black;
+}
