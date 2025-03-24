@@ -15,6 +15,7 @@ import Profile from './components/Profile/Profile.jsx'
 import Report from './components/Report/Report.jsx'
 
 import './App.css'
+import Test from './shared/Test.jsx'
 
 function App() {
   const { isLoggedIn, setIsLoggedIn } = useContext(mainContext)
@@ -88,6 +89,10 @@ function App() {
           <Route
             path='/report'
             Component={Report}
+          />
+          <Route
+            path='/testing'
+            Component={Test}
           />
         </>
       )}
