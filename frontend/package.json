@@ -10,6 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@aws-sdk/client-kinesis-video": "^3.772.0",
+    "@aws-sdk/client-kinesis-video-archived-media": "^3.772.0",
     "@chakra-ui/react": "^2.10.7",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
@@ -20,6 +22,7 @@
     "react-dom": "^19.0.0",
     "react-icons": "^5.5.0",
     "react-paginate": "^8.3.0",
+    "react-player": "^2.16.0",
     "react-pro-sidebar": "^1.1.0",
     "react-router-dom": "^7.3.0",
     "react-toastify": "^11.0.5",

@@ -14,6 +14,7 @@ import mainContext from './context/main.jsx'
 import Profile from './components/Profile/Profile.jsx'
 import Report from './components/Report/Report.jsx'
 import Onboarding from './components/Onboarding/Onboarding.jsx'
+import Test from './shared/Test.jsx'
 
 import './App.css'
 
@@ -75,7 +76,7 @@ function App() {
             Component={Dashboard}
           />
           <Route
-            path='/employees'
+            path='/employee'
             Component={Employee}
           />
           <Route
@@ -93,6 +94,10 @@ function App() {
           <Route
             path='/onboarding'
             Component={Onboarding}
+          />
+          <Route
+            path='/testing'
+            Component={Test}
           />
         </>
       )}
