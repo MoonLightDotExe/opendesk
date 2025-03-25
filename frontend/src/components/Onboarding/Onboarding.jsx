@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useState } from 'react'
 import SidebarCustom from '../../shared/Sidebar/SidebarCustom'
+import axios from 'axios'
 
 import {
   Breadcrumb,
@@ -26,6 +27,65 @@ import { IoInformationCircle, IoWarningOutline } from 'react-icons/io5'
 import './Onboarding.css'
 
 function Onboarding() {
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [confirm_password, setConfirm_password] = useState('')
+  const [clearance, setClearance] = useState()
+  const [manager, setManager] = useState('66c7a5696bc14623881a2fad')
+
+  const handleChange_1 = (e) => {
+    setName(e.target.value)
+    console.log(e.target.value)
+  }
+
+  const handleChange_2 = (e) => {
+    setEmail(e.target.value)
+    console.log(e.target.value)
+  }
+
+  const handleChange_3 = (e) => {
+    setPassword(e.target.value)
+    console.log(e.target.value)
+  }
+
+  const handleChange_4 = (e) => {
+    setConfirm_password(e.target.value)
+    console.log(e.target.value)
+  }
+
+  const handleChange_5 = (e) => {
+    setClearance(e.target.value)
+    console.log(e.target.value)
+  }
+
+  const handleChange_6 = (e) => {
+    setManager(e.target.value)
+    console.log(e.target.value)
+  }
+
+  const send_data = {
+    email: email,
+    password: password,
+    name: name,
+    clearance: clearance,
+    manager: '66c7a5696bc14623881a2fad',
+    dailyReports: [],
+  }
+
+  const handleClick = async () => {
+    try {
+      console.log(send_data)
+      const data = await axios.post(
+        'http://127.0.0.1:5000/addEmployee',
+        send_data
+      )
+      console.log(data)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
     <div className='dashboard-container'>
       <SidebarCustom />
@@ -69,7 +129,8 @@ function Onboarding() {
           <p className='onboarding-container-heading'>Onboarding Form</p>
           <Grid
             templateColumns='repeat(2,1fr)'
-            height='35rem'
+            height='20rem'
+            gap='2rem'
           >
             <FormControl isRequired>
               <FormLabel
@@ -83,6 +144,8 @@ function Onboarding() {
                 type='Name'
                 width='18rem'
                 marginLeft='2.5rem'
+                value={name}
+                onChange={(e) => handleChange_1(e)}
               />
             </FormControl>
 
@@ -97,10 +160,27 @@ function Onboarding() {
                 placeholder='Clearance'
                 marginLeft='2.5rem'
                 width='18rem'
+                onChange={handleChange_5}
               >
-                <option value='option1'>Option 1</option>
-                <option value='option2'>Option 2</option>
-                <option value='option3'>Option 3</option>
+                <option
+                  value='option1'
+                  name='option1'
+                >
+                  Option 1
+                </option>
+                <option
+                  value='option2'
+                  name='option2'
+                >
+                  Option 2
+                </option>
+                <option
+                  value='option3'
+                  name='optione3
+                '
+                >
+                  Option 3
+                </option>
               </Select>
             </FormControl>
 
@@ -116,6 +196,8 @@ function Onboarding() {
                 type='Email'
                 width='18rem'
                 marginLeft='2.5rem'
+                value={email}
+                onChange={(e) => handleChange_2(e)}
               />
             </FormControl>
 
@@ -149,6 +231,8 @@ function Onboarding() {
                 type='Password'
                 width='18rem'
                 marginLeft='2.5rem'
+                value={password}
+                onChange={(e) => handleChange_3(e)}
               />
             </FormControl>
 
@@ -166,9 +250,22 @@ function Onboarding() {
                 type='Password'
                 width='18rem'
                 marginLeft='2.5rem'
+                value={confirm_password}
+                onChange={(e) => handleChange_4(e)}
               />
             </FormControl>
           </Grid>
+          <div className='onboarding-container-button'>
+            <Button
+              width='10rem'
+              type='Submit'
+              colorScheme='green'
+              padding='1.5rem'
+              onClick={handleClick}
+            >
+              SUBMIT
+            </Button>
+          </div>
         </div>
       </div>
     </div>
