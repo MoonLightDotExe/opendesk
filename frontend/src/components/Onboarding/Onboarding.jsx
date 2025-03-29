@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import SidebarCustom from '../../shared/Sidebar/SidebarCustom'
 import axios from 'axios'
+import { ToastContainer, toast, Bounce } from 'react-toastify'
 
 import {
   Breadcrumb,
@@ -23,6 +24,7 @@ import {
   FaUsers,
 } from 'react-icons/fa'
 import { IoInformationCircle, IoWarningOutline } from 'react-icons/io5'
+import { useNavigate } from 'react-router-dom'
 
 import './Onboarding.css'
 
@@ -33,6 +35,8 @@ function Onboarding() {
   const [confirm_password, setConfirm_password] = useState('')
   const [clearance, setClearance] = useState()
   const [manager, setManager] = useState('66c7a5696bc14623881a2fad')
+
+  const navigate = useNavigate()
 
   const handleChange_1 = (e) => {
     setName(e.target.value)
@@ -81,14 +85,50 @@ function Onboarding() {
         send_data
       )
       console.log(data)
+      toast.success('Added employee in successfully!', {
+        position: 'bottom-right',
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+        transition: Bounce,
+      })
+      navigate('/video-capture')
     } catch (error) {
-      console.log(error)
+      console.log(error.response.data.err.message)
+      toast.error(error.response.data.err.message, {
+        position: 'bottom-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+        transition: Bounce,
+      })
     }
   }
 
   return (
     <div className='dashboard-container'>
       <SidebarCustom />
+      <ToastContainer
+        position='bottom-right'
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme='light'
+        transition={Bounce}
+      />
       <div className='dashboard-content'>
         <div className='dashboard-nav'>
           <div className='dashboard-nav-breadcrumb'>
