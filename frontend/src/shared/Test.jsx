@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import ReactPlayer from 'react-player'
+import { Box, Flex } from '@chakra-ui/react'
 import {
   KinesisVideoClient,
   GetDataEndpointCommand,
@@ -55,19 +56,24 @@ function Test() {
   }, [])
 
   return (
-    <div>
+    <Box
+      display={'flex'}
+      justifyContent={'center'}
+      alignItems={'center'}
+      marginTop={'4rem'}
+    >
       {url ? (
         <ReactPlayer
           url={url}
           playing
           controls
-          width='100%'
+          width='50vw'
           height='auto'
         />
       ) : (
         <p>Loading stream...</p>
       )}
-    </div>
+    </Box>
   )
 }
 
