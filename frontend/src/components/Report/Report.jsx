@@ -170,7 +170,31 @@ function Report() {
             View Report
           </Button>
         </div>
-        <div className='report-container-box'></div>
+        <div className='report-container-box'>
+          <div className='report-container-box-heading'>RESHMA</div>
+          <div className='report-cards'>
+            <div className='report-container-card'>
+              <div className='report-container-card-heading'>PRODUCTIVE</div>
+              <div className='report-container-card-number'>200</div>
+            </div>
+            <div className='report-container-card'>
+              <div className='report-container-card-heading'>UNPRODUCTIVE</div>
+              <div className='report-conatiner-card-number'>005</div>
+            </div>
+            <div className='report-container-card'>
+              <div className='report-container-card-heading'>UNKNOWN</div>
+              <div className='report-conatiner-card-number'>000</div>
+            </div>
+            <div className='report-container-card'>
+              <div className='report-container-card-heading'>THREATS</div>
+              <div className='report-conatiner-card-number'>015</div>
+            </div>
+            <div className='report-container-card'>
+              <div className='report-container-card-heading'>TOTAL</div>
+              <div className='report-conatiner-card-number'>200</div>
+            </div>
+          </div>
+        </div>
         <div className='report-container-bottom'>Unknown Services</div>
         <Grid
           width={'70vw'}

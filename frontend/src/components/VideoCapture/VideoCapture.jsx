@@ -1,10 +1,13 @@
 import React, { useRef, useEffect, useState } from 'react'
 import axios from 'axios'
+import { ToastContainer, toast, Bounce } from 'react-toastify'
 
 import Header from '../../shared/Header/Header'
 
 import './VideoCapture.css'
 import { Input } from '@chakra-ui/react'
+
+import { useNavigate } from 'react-router-dom'
 
 function VideoCapture() {
   const videoRef = useRef(null)
@@ -12,6 +15,8 @@ function VideoCapture() {
   const [capturing, setCapturing] = useState(false)
   const [folderName, setFolderName] = useState('')
   const [name, setName] = useState('')
+
+  const navigate = useNavigate()
 
   useEffect(() => {
     navigator.mediaDevices
@@ -38,7 +43,19 @@ function VideoCapture() {
     setTimeout(() => {
       clearInterval(captureInterval)
       setCapturing(false)
-      alert('Stopped capturing after 10 seconds')
+      // alert('Stopped capturing after 10 seconds')
+      toast.success('Captured successfully!', {
+        position: 'bottom-right',
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+        transition: Bounce,
+      })
+      navigate('/dashboard')
     }, 10000)
   }
 
@@ -79,6 +96,19 @@ function VideoCapture() {
   return (
     <>
       <Header />
+      <ToastContainer
+        position='bottom-right'
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme='light'
+        transition={Bounce}
+      />
       <div className='VideoCapture-container'>
         <div className='VideoCapture'>
           <video

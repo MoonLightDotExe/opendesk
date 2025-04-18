@@ -13,9 +13,10 @@ import EmployeeList from './components/EmployeeList/EmployeeList.jsx'
 import mainContext from './context/main.jsx'
 import Profile from './components/Profile/Profile.jsx'
 import Report from './components/Report/Report.jsx'
+import Onboarding from './components/Onboarding/Onboarding.jsx'
+import Test from './shared/Test.jsx'
 
 import './App.css'
-import Test from './shared/Test.jsx'
 
 function App() {
   const { isLoggedIn, setIsLoggedIn } = useContext(mainContext)
@@ -89,6 +90,10 @@ function App() {
           <Route
             path='/report'
             Component={Report}
+          />
+          <Route
+            path='/onboarding'
+            Component={Onboarding}
           />
           <Route
             path='/testing'

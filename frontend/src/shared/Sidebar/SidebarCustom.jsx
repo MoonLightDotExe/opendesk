@@ -1,7 +1,18 @@
 import React, { useState, useContext } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { Sidebar, Menu, MenuItem } from 'react-pro-sidebar'
-import { FaBars, FaBook, FaCalendarAlt, FaUsers } from 'react-icons/fa'
+import {
+  FaBars,
+  FaBook,
+  FaCalendarAlt,
+  FaUsers,
+  FaAddressBook,
+  FaVideo,
+  FaClipboardCheck,
+  FaSignOutAlt,
+} from 'react-icons/fa'
+import { HiClipboardDocumentCheck } from 'react-icons/hi2'
+import { TbReportSearch } from 'react-icons/tb'
 import { ToastContainer, toast, Bounce } from 'react-toastify'
 
 import mainContext from '../../context/main'
@@ -66,7 +77,27 @@ function SidebarCustom() {
             Dashboard
           </MenuItem>
         </Link>
-        <Link to='/employee'>
+        <Link to='/report'>
+          <MenuItem
+            icon={<HiClipboardDocumentCheck />}
+            id='report'
+            onClick={(e) => handleClick(e)}
+            active={isActiveSidebar === 'report'}
+          >
+            Report
+          </MenuItem>
+        </Link>
+        <Link to='/employee-list'>
+          <MenuItem
+            icon={<FaAddressBook />}
+            id='employee-list'
+            onClick={(e) => handleClick(e)}
+            active={isActiveSidebar === 'employee-list'}
+          >
+            Employee-list
+          </MenuItem>
+        </Link>
+        <Link to='/employees'>
           <MenuItem
             icon={<FaUsers />}
             id='employees'
@@ -76,10 +107,17 @@ function SidebarCustom() {
             Employees
           </MenuItem>
         </Link>
-        <MenuItem icon={<FaCalendarAlt />}>Monitoring</MenuItem>
-        <MenuItem icon={<FaCalendarAlt />}>Security Feed</MenuItem>
         <MenuItem
-          icon={<FaCalendarAlt />}
+          icon={<FaClipboardCheck />}
+          id='onboarding'
+          active={isActiveSidebar === 'onboarding'}
+          onClick={(e) => handleClick(e)}
+        >
+          Onboarding
+        </MenuItem>
+        <MenuItem icon={<FaVideo />}>Video Capture</MenuItem>
+        <MenuItem
+          icon={<FaSignOutAlt />}
           onClick={signOutHandler}
         >
           Sign Out
