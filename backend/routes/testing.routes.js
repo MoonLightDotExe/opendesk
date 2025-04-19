@@ -10,4 +10,8 @@ testingRouter.post(
 
 testingRouter.post('/addService', testing_controllers.add_service)
 
+testingRouter.post('/addCamera', testing_controllers.add_camera)
+
+testingRouter.get('/getActiveCameras', testing_controllers.get_active_cameras)
+
 module.exports = testingRouter

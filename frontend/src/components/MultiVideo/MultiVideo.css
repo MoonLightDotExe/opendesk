@@ -14,11 +14,13 @@
   grid-template-rows: 1fr 1fr;
   padding-bottom: 2.5rem;
   gap: 50px;
-  width: 83vw;
+  width: 90vw;
   height: 83vh;
 }
 
 .grid-item {
+  width: 42.5vw;
+  height: 35vh;
   background-color: #fff;
   border: 2px solid black;
   display: flex;

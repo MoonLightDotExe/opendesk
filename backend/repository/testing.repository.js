@@ -4,7 +4,8 @@ const jwt = require('jsonwebtoken')
 
 const dailies = require('../models/daily.model.js')
 const employees = require('../models/employees.models.js')
-const services = require('../models/services.models')
+const services = require('../models/services.models.js')
+const cameras = require('../models/cameras.models.js')
 
 const self = (module.exports = {
   generate_day_report: (body) => {
@@ -106,6 +107,33 @@ const self = (module.exports = {
         })
         console.log(add_service_to_db)
         resolve(add_service_to_db)
+      } catch (err) {
+        reject(err)
+      }
+    })
+  },
+
+  add_camera: (body) => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const { name, rank, isActive } = body
+        const camera = await cameras.create({
+          name,
+          rank,
+          isActive,
+        })
+        resolve(camera)
+      } catch (err) {
+        reject(err)
+      }
+    })
+  },
+
+  get_active_cameras: (body) => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const data = await cameras.find({ isActive: true })
+        resolve(data)
       } catch (err) {
         reject(err)
       }

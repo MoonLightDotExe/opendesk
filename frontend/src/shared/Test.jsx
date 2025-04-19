@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import ReactPlayer from 'react-player'
-import { Box, Flex } from '@chakra-ui/react'
+import { Box } from '@chakra-ui/react'
 import {
   KinesisVideoClient,
   GetDataEndpointCommand,
@@ -9,69 +9,97 @@ import {
   KinesisVideoArchivedMediaClient,
   GetHLSStreamingSessionURLCommand,
 } from '@aws-sdk/client-kinesis-video-archived-media'
+import mainContext from '../context/main'
 
 function Test() {
-  const [url, setUrl] = useState(null)
-  const streamName = 'camera-set-1'
+  const [urls, setUrls] = useState([])
+  const { getActiveCameras, activeCameras } = useContext(mainContext)
+
   const region = 'us-east-1'
+  const credentials = {
+    accessKeyId: import.meta.env.VITE_ACCESS_KEY,
+    secretAccessKey: import.meta.env.VITE_SECRET_KEY,
+  }
 
   useEffect(() => {
-    const getStreamUrl = async () => {
-      const credentials = {
-        accessKeyId: '',
-        secretAccessKey: '',
+    getActiveCameras()
+  }, [])
+
+  useEffect(() => {
+    if (!activeCameras || activeCameras.length === 0) return
+
+    const fetchAllStreams = async () => {
+      const tempUrls = []
+
+      for (const c of activeCameras) {
+        try {
+          const videoClient = new KinesisVideoClient({ region, credentials })
+
+          const endpointResponse = await videoClient.send(
+            new GetDataEndpointCommand({
+              StreamName: c.name,
+              APIName: 'GET_HLS_STREAMING_SESSION_URL',
+            })
+          )
+
+          const hlsClient = new KinesisVideoArchivedMediaClient({
+            region,
+            credentials,
+            endpoint: endpointResponse.DataEndpoint,
+          })
+
+          const hlsResponse = await hlsClient.send(
+            new GetHLSStreamingSessionURLCommand({
+              StreamName: c.name, // use the current camera's name
+              PlaybackMode: 'LIVE',
+              HLSFragmentSelector: {
+                FragmentSelectorType: 'SERVER_TIMESTAMP',
+              },
+              Expires: 3600,
+            })
+          )
+
+          tempUrls.push({
+            name: c.name,
+            url: hlsResponse.HLSStreamingSessionURL,
+          })
+        } catch (err) {
+          console.error(`Error fetching stream for ${c.name}:`, err)
+        }
       }
 
-      // Step 1: Get Data Endpoint
-      const videoClient = new KinesisVideoClient({ region, credentials })
-      const endpointResponse = await videoClient.send(
-        new GetDataEndpointCommand({
-          StreamName: streamName,
-          APIName: 'GET_HLS_STREAMING_SESSION_URL',
-        })
-      )
-
-      const hlsClient = new KinesisVideoArchivedMediaClient({
-        region,
-        credentials,
-        endpoint: endpointResponse.DataEndpoint,
-      })
-
-      // Step 2: Get HLS URL
-      const hlsResponse = await hlsClient.send(
-        new GetHLSStreamingSessionURLCommand({
-          StreamName: streamName,
-          PlaybackMode: 'LIVE',
-          HLSFragmentSelector: {
-            FragmentSelectorType: 'SERVER_TIMESTAMP',
-          },
-          Expires: 3600,
-        })
-      )
-
-      setUrl(hlsResponse.HLSStreamingSessionURL)
+      setUrls(tempUrls)
     }
 
-    getStreamUrl().catch((err) => console.error('Error fetching stream:', err))
-  }, [])
+    fetchAllStreams()
+  }, [activeCameras])
 
   return (
     <Box
-      display={'flex'}
-      justifyContent={'center'}
-      alignItems={'center'}
-      marginTop={'4rem'}
+      display='flex'
+      flexWrap='wrap'
+      gap='20px'
+      justifyContent='center'
     >
-      {url ? (
-        <ReactPlayer
-          url={url}
-          playing
-          controls
-          width='50vw'
-          height='auto'
-        />
+      {urls.length === 0 ? (
+        <p>Loading streams...</p>
       ) : (
-        <p>Loading stream...</p>
+        urls.map((c, i) => (
+          <Box
+            key={i}
+            width='45vw'
+          >
+            <p>{c.name}</p>
+            <ReactPlayer
+              url={c.url}
+              playing
+              muted
+              controls
+              width='100%'
+              height='auto'
+            />
+          </Box>
+        ))
       )}
     </Box>
   )

@@ -18,6 +18,7 @@ module.exports = {
       })
     }
   },
+
   add_service: async (req, res) => {
     try {
       const data = await testing_repo.add_service(req.body)
@@ -25,6 +26,40 @@ module.exports = {
         success: true,
         data,
         message: 'Service added successfully!',
+      })
+    } catch (err) {
+      res.status(400).json({
+        success: false,
+        err,
+        message: err.message,
+      })
+    }
+  },
+
+  add_camera: async (req, res) => {
+    try {
+      const data = await testing_repo.add_camera(req.body)
+      res.status(201).json({
+        success: true,
+        data,
+        message: 'Camera added successfully!',
+      })
+    } catch (err) {
+      res.status(400).json({
+        success: false,
+        err,
+        message: err.message,
+      })
+    }
+  },
+
+  get_active_cameras: async (req, res) => {
+    try {
+      const data = await testing_repo.get_active_cameras(req.body)
+      res.status(200).json({
+        success: true,
+        data,
+        message: 'Successfully retrieved active cameras!',
       })
     } catch (err) {
       res.status(400).json({

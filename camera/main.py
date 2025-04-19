@@ -7,7 +7,7 @@ import pickle
 import os
 import face_recognition
 
-STREAM_NAME = "camera-set-1"
+STREAM_NAME = "camera-set-2"
 REGION = "us-east-1"
 DATASET_DIR = r"D:\opendesk\downloaded_images"
 MODEL_ENCODING_PATH = "face_encodings.pkl"

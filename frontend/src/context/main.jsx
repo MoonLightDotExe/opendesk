@@ -8,6 +8,7 @@ export const MainProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [listData, setListData] = useState([])
   const [dayReport, setDayReport] = useState()
+  const [activeCameras, setActiveCameras] = useState()
 
   const loginUser = async (send_data) => {
     try {
@@ -79,6 +80,17 @@ export const MainProvider = ({ children }) => {
     }
   }
 
+  const getActiveCameras = async () => {
+    try {
+      const response = await axios.get('http://127.0.0.1:5000/getActiveCameras')
+      console.log('context')
+      console.log(response.data.data)
+      setActiveCameras(response.data.data)
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
   return (
     <mainContext.Provider
       value={{
@@ -92,6 +104,8 @@ export const MainProvider = ({ children }) => {
         listData,
         generateDayReport,
         dayReport,
+        getActiveCameras,
+        activeCameras,
       }}
     >
       {children}
