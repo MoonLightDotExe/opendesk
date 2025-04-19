@@ -1,2 +1,7 @@
 frontend/node_modules
 camera/*
+camera/main.py
+downloaded_images
+face_encodings.pkl
+face_labels.pkl
+__pycache__

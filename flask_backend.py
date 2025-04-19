@@ -22,7 +22,7 @@ s3_client = boto3.client(
     aws_secret_access_key=AWS_SECRET_KEY
 )
 
-LOCAL_FOLDER = 'downloaded_images'
+LOCAL_FOLDER = './downloaded_images'
 
 if not os.path.exists(LOCAL_FOLDER):
     os.makedirs(LOCAL_FOLDER)
@@ -44,11 +44,17 @@ def download_images():
             file_name = item['Key']
             if file_name.lower().endswith(('.png', '.jpg', '.jpeg', '.gif', '.bmp')):
                 local_file_path = os.path.join(LOCAL_FOLDER, file_name)
-                local_dir = os.path.dirname(local_file_path)
+                
+                # Debug: Log the file paths
+                print(f"Processing file: {file_name}")
+                print(f"Saving to local path: {local_file_path}")
 
+                # Make sure the local directory exists
+                local_dir = os.path.dirname(local_file_path)
                 if not os.path.exists(local_dir):
                     os.makedirs(local_dir)
 
+                # Download file from S3 to local path
                 s3_client.download_file(S3_BUCKET, file_name, local_file_path)
                 downloaded_count += 1
 
