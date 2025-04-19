@@ -179,19 +179,19 @@ function Report() {
             </div>
             <div className='report-container-card'>
               <div className='report-container-card-heading'>UNPRODUCTIVE</div>
-              <div className='report-conatiner-card-number'>005</div>
+              <div className='report-container-card-number'>005</div>
             </div>
             <div className='report-container-card'>
               <div className='report-container-card-heading'>UNKNOWN</div>
-              <div className='report-conatiner-card-number'>000</div>
+              <div className='report-container-card-number'>000</div>
             </div>
             <div className='report-container-card'>
               <div className='report-container-card-heading'>THREATS</div>
-              <div className='report-conatiner-card-number'>015</div>
+              <div className='report-container-card-number'>015</div>
             </div>
             <div className='report-container-card'>
               <div className='report-container-card-heading'>TOTAL</div>
-              <div className='report-conatiner-card-number'>200</div>
+              <div className='report-container-card-number'>200</div>
             </div>
           </div>
         </div>
