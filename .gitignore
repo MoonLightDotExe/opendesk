@@ -5,3 +5,4 @@ downloaded_images
 face_encodings.pkl
 face_labels.pkl
 __pycache__
+detected_people.txt

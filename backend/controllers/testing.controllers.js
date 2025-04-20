@@ -69,4 +69,38 @@ module.exports = {
       })
     }
   },
+
+  update_service: async (req, res) => {
+    try {
+      const data = await testing_repo.update_service(req.body)
+      res.status(200).json({
+        success: true,
+        data,
+        message: 'Successfully updated service!',
+      })
+    } catch (err) {
+      res.status(400).json({
+        success: false,
+        err,
+        message: err.message,
+      })
+    }
+  },
+
+  generatePhysicalReport: async (req, res) => {
+    try {
+      const data = await testing_repo.generatePhysicalReport(req.body)
+      res.status(200).json({
+        success: true,
+        data,
+        message: 'Successfully generated physical report!',
+      })
+    } catch (err) {
+      res.status(400).json({
+        success: false,
+        err,
+        message: err.message,
+      })
+    }
+  },
 }

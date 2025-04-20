@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { Sidebar, Menu, MenuItem } from 'react-pro-sidebar'
+import axios from 'axios'
 import {
   FaBars,
   FaBook,
@@ -13,6 +14,8 @@ import {
 } from 'react-icons/fa'
 import { HiClipboardDocumentCheck } from 'react-icons/hi2'
 import { TbReportSearch } from 'react-icons/tb'
+import { MdModelTraining } from 'react-icons/md'
+
 import { ToastContainer, toast, Bounce } from 'react-toastify'
 
 import mainContext from '../../context/main'
@@ -52,6 +55,29 @@ function SidebarCustom() {
   const handleClick = (e) => {
     setIsActiveSidebar(e.currentTarget.id)
   }
+
+  const handleRecalibrate = async () => {
+    try {
+      const response = await axios.post('http://127.0.0.1:5001/retrain-model')
+      toast.success(
+        'Model Retrained Successfully! Applying to all cameras in a few seconds',
+        {
+          position: 'bottom-right',
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: false,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'light',
+          transition: Bounce,
+        }
+      )
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
   return (
     <Sidebar
       collapsed={collapsed}
@@ -116,6 +142,12 @@ function SidebarCustom() {
           Onboarding
         </MenuItem>
         <MenuItem icon={<FaVideo />}>Video Capture</MenuItem>
+        <MenuItem
+          icon={<MdModelTraining />}
+          onClick={handleRecalibrate}
+        >
+          Recalibrate
+        </MenuItem>
         <MenuItem
           icon={<FaSignOutAlt />}
           onClick={signOutHandler}

@@ -5,10 +5,12 @@ from dotenv import load_dotenv
 import cv2 as cv
 import numpy as np
 from face_train import create_train
+from flask_cors import CORS
 
 load_dotenv()
 
 app = Flask(__name__)
+CORS(app)
 
 S3_BUCKET = 'opendesk'
 S3_REGION = 'us-east-1'
@@ -67,7 +69,43 @@ def download_images():
 
     except Exception as e:
         return str(e), 500
+    
+@app.route('/retrain-model', methods=['POST'])  
+def retrain_model():
+    try:
+        # Clear the LOCAL_FOLDER directory first (optional, to prevent duplicates)
+        for root, dirs, files in os.walk(LOCAL_FOLDER):
+            for file in files:
+                os.remove(os.path.join(root, file))
+
+        # List all objects in the bucket
+        response = s3_client.list_objects_v2(Bucket=S3_BUCKET)
+
+        if 'Contents' not in response:
+            return "No images found in the bucket.", 404
+
+        downloaded_count = 0
+        for item in response['Contents']:
+            file_name = item['Key']
+            if file_name.lower().endswith(('.png', '.jpg', '.jpeg', '.gif', '.bmp')):
+                local_file_path = os.path.join(LOCAL_FOLDER, file_name)
+
+                print(f"Downloading: {file_name}")
+                local_dir = os.path.dirname(local_file_path)
+                if not os.path.exists(local_dir):
+                    os.makedirs(local_dir)
+
+                s3_client.download_file(S3_BUCKET, file_name, local_file_path)
+                downloaded_count += 1
+
+        # Retrain the model after downloading
+        create_train()
+
+        return f"Retrained model with {downloaded_count} images.", 200
+
+    except Exception as e:
+        return str(e), 500
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, port=5001)

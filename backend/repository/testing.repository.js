@@ -6,6 +6,7 @@ const dailies = require('../models/daily.model.js')
 const employees = require('../models/employees.models.js')
 const services = require('../models/services.models.js')
 const cameras = require('../models/cameras.models.js')
+const camerasData = require('../models/camerasData.models.js')
 
 const self = (module.exports = {
   generate_day_report: (body) => {
@@ -33,9 +34,20 @@ const self = (module.exports = {
         let threats = []
         let unknownServices = []
 
+        let sortedArray = []
+
         userDay.data.map((user) => {
           totalDayOccurences += user.occurences
         })
+
+        sortedArray = userDay.data.sort((a, b) => b.occurences - a.occurences)
+        let topFive = [
+          sortedArray[0],
+          sortedArray[1],
+          sortedArray[2],
+          sortedArray[3],
+          sortedArray[4],
+        ]
 
         let imported_services = await services.find({})
 
@@ -80,9 +92,28 @@ const self = (module.exports = {
           unknownServices,
         }
 
+        let performance = (totalPositive / totalDayOccurences) * 100
+        let unproductivity = (totalNegative / totalDayOccurences) * 100
+        let unknown = 100 - (performance + unproductivity)
+
+        performance = parseFloat(performance.toFixed(1))
+        unproductivity = parseFloat(unproductivity.toFixed(1))
+        unknown = parseFloat(unknown.toFixed(1))
+
+        let variable = 100 - (performance + unproductivity + unknown)
+        unknown += variable
+
+        let stats = {
+          performance,
+          unproductivity,
+          unknown,
+          topFive,
+        }
+
         let finalReport = {
           finalReportOccurences,
           finalReportServices,
+          stats,
         }
 
         console.log(finalReport)
@@ -136,6 +167,88 @@ const self = (module.exports = {
         resolve(data)
       } catch (err) {
         reject(err)
+      }
+    })
+  },
+
+  update_service: (body) => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const { service, type } = body
+        const serviceFound = await services.updateOne(
+          { name: service },
+          { $set: { type } }
+        )
+
+        resolve(serviceFound)
+      } catch (err) {
+        reject(err)
+      }
+    })
+  },
+
+  generatePhysicalReport: (body) => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const { personName, date } = body
+
+        // Step 1: Pull all camera data for the given date (no name filtering here)
+        const cameraData = await camerasData.find({ date })
+        console.log(cameraData)
+        if (!cameraData || cameraData.length === 0) {
+          return reject({
+            success: false,
+            message: `No data found on ${date}`,
+          })
+        }
+
+        // Step 2: Filter and track the person's path
+        let path = []
+
+        cameraData.forEach((camera) => {
+          camera.data.forEach((logLine) => {
+            // Check if this log line contains the person's name
+            if (
+              logLine
+                .toLowerCase()
+                .includes(`detected: ${personName.toLowerCase()}`)
+            ) {
+              const timestampMatch = logLine.match(/\[([^\]]+)\]/)
+              if (timestampMatch) {
+                path.push({
+                  cameraSet: camera.name,
+                  timestamp: timestampMatch[1],
+                })
+              }
+            }
+          })
+        })
+
+        // Step 3: Sort by timestamp
+        path.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp))
+
+        // Step 4: Remove sequential duplicates
+        const uniquePath = path.reduce((acc, curr) => {
+          if (
+            acc.length === 0 ||
+            acc[acc.length - 1].cameraSet !== curr.cameraSet
+          ) {
+            acc.push(curr)
+          }
+          return acc
+        }, [])
+
+        resolve({
+          success: true,
+          data: uniquePath,
+          message: `Successfully generated path report for ${personName} on ${date}`,
+        })
+      } catch (err) {
+        reject({
+          success: false,
+          err: err.message,
+          message: 'An error occurred while generating the path report.',
+        })
       }
     })
   },

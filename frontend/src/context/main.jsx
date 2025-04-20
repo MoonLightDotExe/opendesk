@@ -8,6 +8,7 @@ export const MainProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [listData, setListData] = useState([])
   const [dayReport, setDayReport] = useState()
+  const [physicalReport, setPhysicalReport] = useState()
   const [activeCameras, setActiveCameras] = useState()
 
   const loginUser = async (send_data) => {
@@ -73,7 +74,12 @@ export const MainProvider = ({ children }) => {
         'http://127.0.0.1:5000/generateDayReport',
         send_data
       )
+      const response2 = await axios.post(
+        'http://127.0.0.1:5000/generatePhysicalReport',
+        send_data
+      )
       console.log(response.data.data)
+      setPhysicalReport(response2.data.data.data)
       setDayReport(response.data.data)
     } catch (err) {
       console.log(err)
@@ -106,6 +112,7 @@ export const MainProvider = ({ children }) => {
         dayReport,
         getActiveCameras,
         activeCameras,
+        physicalReport,
       }}
     >
       {children}

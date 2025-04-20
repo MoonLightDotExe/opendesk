@@ -6,42 +6,42 @@ import threading
 import pickle
 import os
 import face_recognition
+from datetime import datetime
 
-STREAM_NAME = "camera-set-2"
+# Config
+STREAM_NAME = "camera-set-1"
 REGION = "us-east-1"
 DATASET_DIR = r"D:\opendesk\downloaded_images"
-MODEL_ENCODING_PATH = "face_encodings.pkl"
-MODEL_LABELS_PATH = "face_labels.pkl"
+ENCODINGS_PATH = "face_encodings.pkl"
+LABELS_PATH = "face_labels.pkl"
+PROCESS_EVERY_N = 10
+LOG_FILE = "detected_people.txt"
 
-# Load known encodings and labels
-with open(MODEL_ENCODING_PATH, 'rb') as f:
+# Load encodings and labels
+with open(ENCODINGS_PATH, 'rb') as f:
     known_encodings = pickle.load(f)
-
-with open(MODEL_LABELS_PATH, 'rb') as f:
+with open(LABELS_PATH, 'rb') as f:
     known_labels = pickle.load(f)
 
 people = os.listdir(DATASET_DIR)
 print("People in dataset:", people)
 
-# Step 1: Get the media endpoint
+# Open the file for logging (append mode)
+log_file = open(LOG_FILE, "a")
+
+# Get Kinesis media endpoint
 kvs_client = boto3.client("kinesisvideo", region_name=REGION)
 endpoint = kvs_client.get_data_endpoint(StreamName=STREAM_NAME, APIName="GET_MEDIA")['DataEndpoint']
-
-# Step 2: Get media payload from stream
 media_client = boto3.client("kinesis-video-media", endpoint_url=endpoint, region_name=REGION)
 response = media_client.get_media(StreamName=STREAM_NAME, StartSelector={"StartSelectorType": "NOW"})
 
-# Step 3: Launch FFmpeg to convert to raw video frames
+# Start FFmpeg subprocess to convert video to raw frames
 ffmpeg = subprocess.Popen([
-    'ffmpeg',
-    '-i', 'pipe:0',
-    '-f', 'image2pipe',
-    '-pix_fmt', 'bgr24',
-    '-vcodec', 'rawvideo',
-    '-'
+    'ffmpeg', '-i', 'pipe:0',
+    '-f', 'image2pipe', '-pix_fmt', 'bgr24', '-vcodec', 'rawvideo', '-'
 ], stdin=subprocess.PIPE, stdout=subprocess.PIPE)
 
-# Step 4: Feed chunks to FFmpeg in a thread
+# Feed FFmpeg in background
 def feed_ffmpeg():
     for chunk in response['Payload'].iter_chunks():
         try:
@@ -51,7 +51,7 @@ def feed_ffmpeg():
 
 threading.Thread(target=feed_ffmpeg, daemon=True).start()
 
-# Step 5: Read and process frames
+# Read frames
 def read_frames(width=320, height=240):
     frame_size = width * height * 3
     while True:
@@ -59,44 +59,43 @@ def read_frames(width=320, height=240):
         if not raw:
             break
         frame = np.frombuffer(raw, np.uint8).copy().reshape((height, width, 3))
-
         yield frame
 
-# Step 6: Face recognition loop
+# Process feed
 frame_count = 0
-process_every_n = 100  # Process every Nth frame to save compute
 
 for frame in read_frames():
     frame_count += 1
-    label = "Detecting..."
 
-    if frame_count % process_every_n == 0:
-        rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-        face_locations = face_recognition.face_locations(rgb_frame)
-        face_encodings = face_recognition.face_encodings(rgb_frame, face_locations)
+    # Show the live video feed
+    cv2.imshow("Live Feed", frame)
 
-        for (top, right, bottom, left), face_encoding in zip(face_locations, face_encodings):
-            matches = face_recognition.compare_faces(known_encodings, face_encoding)
+    # Run recognition every Nth frame
+    if frame_count % PROCESS_EVERY_N == 0:
+        small_frame = cv2.resize(frame, (0, 0), fx=0.25, fy=0.25)
+        rgb_small = cv2.cvtColor(small_frame, cv2.COLOR_BGR2RGB)
+        face_locations = face_recognition.face_locations(rgb_small, model="hog")
+        face_encodings = face_recognition.face_encodings(rgb_small, face_locations)
+
+        for face_encoding in face_encodings:
             face_distances = face_recognition.face_distance(known_encodings, face_encoding)
             best_match_index = np.argmin(face_distances)
+            confidence = 1 - face_distances[best_match_index]
 
-            if matches[best_match_index]:
+            if face_recognition.compare_faces([known_encodings[best_match_index]], face_encoding)[0]:
                 name = people[known_labels[best_match_index]]
-                confidence = 1 - face_distances[best_match_index]
                 label = f"{name} ({confidence:.2f})"
-                color = (0, 255, 0)
             else:
                 label = "Unknown"
-                color = (0, 0, 255)
 
-            # Draw box and label
-            cv2.rectangle(frame, (left, top), (right, bottom), color, 2)
-            cv2.putText(frame, label, (left, top - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.7, color, 2)
+            timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+            log_entry = f"[{timestamp}] Detected: {label}"
+            print(log_entry)
+            log_file.write(log_entry + "\n")
+            log_file.flush()
 
-        print(label)
-
-    cv2.imshow("Face Recognition", frame)
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
 
 cv2.destroyAllWindows()
+log_file.close()
