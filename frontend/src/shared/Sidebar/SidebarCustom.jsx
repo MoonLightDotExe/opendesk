@@ -107,21 +107,25 @@ function SidebarCustom() {
             Employees
           </MenuItem>
         </Link>
-        <MenuItem
-          icon={<FaClipboardCheck />}
-          id='onboarding'
-          active={isActiveSidebar === 'onboarding'}
-          onClick={(e) => handleClick(e)}
-        >
-          Onboarding
-        </MenuItem>
-        <MenuItem icon={<FaVideo />}>Video Capture</MenuItem>
-        <MenuItem
-          icon={<FaSignOutAlt />}
-          onClick={signOutHandler}
-        >
-          Sign Out
-        </MenuItem>
+        <Link to='/onboarding'>
+          <MenuItem
+            icon={<FaClipboardCheck />}
+            id='onboarding'
+            active={isActiveSidebar === 'onboarding'}
+            onClick={(e) => handleClick(e)}
+          >
+            Onboarding
+          </MenuItem>
+        </Link>
+        <Link to='/video-capture'>
+          <MenuItem icon={<FaVideo />}>Video Capture</MenuItem>
+          <MenuItem
+            icon={<FaSignOutAlt />}
+            onClick={signOutHandler}
+          >
+            Sign Out
+          </MenuItem>
+        </Link>
       </Menu>
       <ToastContainer
         position='bottom-right'
